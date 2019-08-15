@@ -1,0 +1,22 @@
+[
+  {
+    "RootPath": "../backend/src",
+    "OutPath": "./src/contracts",
+    "ContractsRegex": ".*Core.Contracts.User(/|\\\\).*\\.cs$",
+    "Name": "Plenti",
+    "TypeScript": {
+      "ContractsPreambleLines": [
+        "/* eslint-disable */",
+        "type IRemoteCommand = import(\"../services/CqrsClient/src/ClientType\").IRemoteCommand;",
+        "type IRemoteQuery<TOutput> = import(\"../services/CqrsClient/src/ClientType\").IRemoteQuery<TOutput>;",
+        ""
+      ],
+      "ClientPreambleLines": [
+        "/* eslint-disable */",
+        "import { CQRS } from \"../services/CqrsClient/src/CQRS\";",
+        "import { ClientType } from \"../services/CqrsClient/src/ClientType\";",
+        ""
+      ]
+    }
+  }
+]
