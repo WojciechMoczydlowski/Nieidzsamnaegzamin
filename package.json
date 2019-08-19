@@ -10,13 +10,14 @@
     "build": "webpack --mode=production --config ./config/webpack.config.js",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook --quiet",
-    "prettierTs" : "prettier --write --end-of-line lf  src/**/*.ts",
-    "prettierTsx" : "prettier --write --end-of-line lf  src/**/*.tsx"
+    "prettierTsx": "prettier --write --end-of-line lf  src/**/*.tsx",
+    "prettierTs": "prettier --write --end-of-line lf  src/**/*.ts"
   },
   "dependencies": {
     "@material-ui/core": "4.3.2",
     "@material-ui/icons": "4.2.1",
     "cross-fetch": "2.2.1",
+    "firebase": "^6.3.5",
     "form-urlencoded": "2.0.7",
     "jquery": "3.4.1",
     "jwt-decode": "2.2.0",
