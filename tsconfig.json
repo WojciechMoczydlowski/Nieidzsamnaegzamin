@@ -17,6 +17,7 @@
       "$routes": ["routes"],
       "$assets/*": ["assets/*"],
       "$contracts/*": ["contracts/*"],
+      "$configuration/*": ["configuration/*"],
       "$components/*": ["components/*"],
       "$domain/*": ["domain/*"],
       "$pages/*": ["pages/*"],

@@ -1,14 +1,13 @@
  import firebase from "firebase";
- 
  // Your web app's Firebase configuration
  var firebaseConfig = {
-    apiKey: "AIzaSyByAHCpUyt29Otvsx7OqS3VOydzc2OR3BY",
-    authDomain: "nie-idz-sam-na-egzamin.firebaseapp.com",
-    databaseURL: "https://nie-idz-sam-na-egzamin.firebaseio.com",
-    projectId: "nie-idz-sam-na-egzamin",
-    storageBucket: "",
-    messagingSenderId: "1078355837334",
-    appId: "1:1078355837334:web:89a77c1762eeb8dd"
+  apiKey: "AIzaSyDuDC-HqsY8Twl6mhgXKcHszL66yUUPorU",
+  authDomain: "nieidzsamnaegzamin-3d87b.firebaseapp.com",
+  databaseURL: "https://nieidzsamnaegzamin-3d87b.firebaseio.com",
+  projectId: "nieidzsamnaegzamin-3d87b",
+  storageBucket: "",
+  messagingSenderId: "453891393309",
+  appId: "1:453891393309:web:617c00b087110e20"
   };
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+  export default firebase.initializeApp(firebaseConfig);

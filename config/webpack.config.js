@@ -148,7 +148,7 @@ module.exports = (env, argv) => {
             contentBase: path.join(paths.appRoot, "deploy"),
             publicPath: "/",
             disableHostCheck: true,
-            port: 40113,
+            port: 1305,
             compress: true,
 
             host: "0.0.0.0",

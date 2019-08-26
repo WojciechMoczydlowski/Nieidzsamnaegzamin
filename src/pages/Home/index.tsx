@@ -1,13 +1,22 @@
-import React from "react";
-const NavBar: React.FunctionComponent = () => {
-    // useEffect(() => {
-    //     firebase.
-    //     return () => {
-    //         cleanup
-    //     };
-    // }, [input])
+import firebase from "$configuration/firebase";
+import styled from "@material-ui/styles/styled";
+import React, { useEffect } from "react";
 
-    return <div>Home Page</div>;
+const Home: React.FunctionComponent = () => {
+    useEffect(() => {
+        console.error("render");
+        const currentUser = firebase.auth().currentUser;
+        currentUser && console.log(currentUser);
+    }, []);
+    return (
+        <div>
+            <div>HomePage</div>
+            <Logout onClick={() => firebase.auth().signOut()}>Wyloguj</Logout>
+        </div>
+    );
 };
+const Logout = styled("div")({
+    cursor: "pointer",
+});
 
-export default NavBar;
+export default Home;
