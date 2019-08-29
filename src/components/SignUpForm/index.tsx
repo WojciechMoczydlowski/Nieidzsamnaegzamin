@@ -1,6 +1,7 @@
-import firebase from "$configuration/firebase";
-import { SingingSection } from "$pages/Login";
-import { Button, DialogActions, DialogContentText, TextField } from "@material-ui/core";
+import { ErrorLabel, StyledInput, Title } from "$components/SignInForm";
+import { SingingSection } from "$pages/LandingPage";
+import loginManager from "$services/loginManager";
+import { Button, DialogActions, DialogContentText } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import React, { useState } from "react";
 type SignUpFormProps = {
@@ -70,81 +71,35 @@ const SignUpForm: React.FunctionComponent<SignUpFormProps> = ({ setSingingSectio
     };
 
     const handleSignUp = () => {
+        handleNameError();
+        handleLastNameError();
+        handleEmailError();
+        handlePasswordError();
         if (handleNameError() || handleLastNameError() || handleEmailError() || handlePasswordError()) {
             console.error("validation problem");
         } else {
-            firebase
-                .auth()
-                .createUserWithEmailAndPassword(email, password)
-                .then(result => {
-                    const user = result.user;
-                    user &&
-                        user
-                            .updateProfile({
-                                displayName: `${name} ${lastName}`,
-                                photoURL: "https://example.com/jane-q-user/profile.jpg",
-                            })
-                            .then(
-                                () => console.log("success"),
-                                // Update successful.
-                            )
-                            .catch(error => console.error(error));
-                })
-                .then(() => setSingingSection("signing_in"))
-                .catch(function(error) {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    console.error(errorCode, errorMessage);
-                });
+            // loginManager.trySignUp(email, password, name, lastName);
+            loginManager.trySignUp(email, password, name, lastName);
+            console.error("signUp");
         }
     };
     return (
         <>
-            <StyledDialogContentText>Uzupełnij swoje dane</StyledDialogContentText>
+            <Title>Uzupełnij swoje dane</Title>
             <InputWrapper>
-                <TextField
-                    autoFocus
-                    id="name"
-                    placeholder={"Imię"}
-                    type="email"
-                    fullWidth
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                    error={nameError !== undefined}
-                    helperText={nameError}
-                />
-                <TextField
-                    margin="dense"
-                    id="lastName"
-                    placeholder={"Nazwisko"}
-                    type="email"
-                    fullWidth
-                    value={lastName}
-                    onChange={e => setLastName(e.target.value)}
-                    error={lastNameError !== undefined}
-                    helperText={lastNameError}
-                />
-                <TextField
-                    margin="dense"
-                    id="email"
-                    placeholder={"Email"}
-                    type="email"
-                    fullWidth
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    error={emailError !== undefined}
-                    helperText={emailError}
-                />
-                <TextField
-                    margin="dense"
-                    placeholder={"Hasło"}
-                    type="password"
-                    fullWidth
+                <StyledInput value={name} onChange={e => setName(e.target.value)} placeholder={"Imię"} />
+                {nameError && <ErrorLabel>{nameError}</ErrorLabel>}
+                <StyledInput value={lastName} onChange={e => setLastName(e.target.value)} placeholder={"Nazwisko"} />
+                {lastNameError && <ErrorLabel>{lastNameError}</ErrorLabel>}
+                <StyledInput value={email} onChange={e => setEmail(e.target.value)} placeholder={"Email"} />
+                {emailError && <ErrorLabel>{emailError}</ErrorLabel>}
+                <StyledInput
+                    type={"password"}
                     value={password}
                     onChange={e => setPassword(e.target.value)}
-                    error={passwordError !== undefined}
-                    helperText={passwordError}
+                    placeholder={"Hasło"}
                 />
+                {passwordError && <ErrorLabel>{passwordError}</ErrorLabel>}
             </InputWrapper>
             <StyledDialogActions>
                 <Button color="primary" onClick={() => setSingingSection("signing_in")}>

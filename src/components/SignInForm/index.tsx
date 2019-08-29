@@ -1,6 +1,6 @@
 import firebase from "$configuration/firebase";
-import { SingingSection } from "$pages/Login";
-import { Button, DialogActions, DialogContentText, TextField } from "@material-ui/core";
+import { SingingSection } from "$pages/LandingPage";
+import { Button, DialogActions } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import React, { useState } from "react";
 
@@ -48,6 +48,8 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setSingingSectio
     };
 
     const handleSignIn = () => {
+        handleEmailError();
+        handlePasswordError();
         if (handleEmailError() || handlePasswordError()) {
             console.error("validation problem");
         } else {
@@ -63,29 +65,17 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setSingingSectio
     };
     return (
         <>
-            <StyledDialogContentText>Aby się zalogować, uzupełnij swoje dane</StyledDialogContentText>
+            <Title>Aby się zalogować, uzupełnij swoje dane</Title>
             <InputWrapper>
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    placeholder={"Email"}
-                    type="email"
-                    fullWidth
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    error={emailError !== undefined}
-                    helperText={emailError}
-                />
-                <TextField
-                    margin="dense"
-                    placeholder={"Hasło"}
-                    type="password"
-                    fullWidth
+                <StyledInput value={email} onChange={e => setEmail(e.target.value)} placeholder={"Email"} />
+                {emailError && <ErrorLabel>{emailError}</ErrorLabel>}
+                <StyledInput
+                    type={"password"}
                     value={password}
                     onChange={e => setPassword(e.target.value)}
-                    error={passwordError !== undefined}
-                    helperText={passwordError}
+                    placeholder={"Hasło"}
                 />
+                {passwordError && <ErrorLabel>{passwordError}</ErrorLabel>}
             </InputWrapper>
 
             <StyledDialogActions>
@@ -99,7 +89,8 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setSingingSectio
         </>
     );
 };
-const StyledDialogContentText = styled(DialogContentText)({
+export const Title = styled("h3")({
+    color: "white",
     textAlign: "center",
 });
 
@@ -113,6 +104,26 @@ const InputWrapper = styled("div")({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+});
+
+export const StyledInput = styled("input")({
+    marginTop: "10px",
+    padding: "15px",
+    color: "white",
+    border: "1px solid white",
+    outline: "none",
+    borderRadius: "20px",
+    background: "transparent",
+    fontWeight: "bold",
+    "&::placeholder": {
+        color: "white",
+        fontWeight: "normal",
+    },
+});
+
+export const ErrorLabel = styled("div")({
+    color: "white",
+    margin: "10px 10px",
 });
 
 export default SignInForm;

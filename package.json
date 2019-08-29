@@ -10,8 +10,7 @@
     "build": "webpack --mode=production --config ./config/webpack.config.js",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook --quiet",
-    "prettierTsx": "prettier --write --end-of-line lf  src/**/*.tsx",
-    "prettierTs": "prettier --write --end-of-line lf  src/**/*.ts"
+    "prettier": "prettier --write --end-of-line lf  src/**/*.ts{,x}"
   },
   "dependencies": {
     "@firebase/auth-types": "^0.7.2",
@@ -84,7 +83,7 @@
     "sass-loader": "7.1.0",
     "storybook-addon-specifications": "2.1.2",
     "style-loader": "0.23.1",
-    "typescript": "3.5.1",
+    "typescript": "3.6.2",
     "webpack": "4.29.6",
     "webpack-cli": "3.3.0",
     "webpack-dev-server": "3.3.1",

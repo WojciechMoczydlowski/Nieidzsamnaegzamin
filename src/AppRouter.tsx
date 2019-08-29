@@ -1,4 +1,4 @@
-import HomePage from "$pages/Home";
+import HomePage from "$pages/Main";
 import React from "react";
 import { Route, Switch } from "react-router";
 import "./styles/global-styles.scss";
