@@ -42,12 +42,12 @@ const SignUpForm: React.FunctionComponent<SignUpFormProps> = ({ setSingingSectio
 
     const handleEmailError = () => {
         if (email === "") {
-            let error = "Email jest wymagany";
+            let error = "Niepoprawny format email";
             setEmailError(error);
             return error;
         }
         if (!validateEmail(email)) {
-            let error = "Email jest wymagany";
+            let error = "";
             setEmailError(error);
             return error;
         }
@@ -71,10 +71,6 @@ const SignUpForm: React.FunctionComponent<SignUpFormProps> = ({ setSingingSectio
     };
 
     const handleSignUp = () => {
-        handleNameError();
-        handleLastNameError();
-        handleEmailError();
-        handlePasswordError();
         if (handleNameError() || handleLastNameError() || handleEmailError() || handlePasswordError()) {
             console.error("validation problem");
         } else {

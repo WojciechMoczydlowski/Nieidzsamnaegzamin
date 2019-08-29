@@ -28,6 +28,9 @@ export const BackgroundPicture = styled("div")({
     width: "100%",
     backgroundImage: `url(${mainBackground})`,
     position: "relative",
+    "@media (max-width: 600px)": {
+        backgroundPosition: "center",
+    },
 });
 
 export const TitleWrapper = styled("div")({
@@ -36,6 +39,10 @@ export const TitleWrapper = styled("div")({
     top: "5%",
     left: "5%",
     textAlign: "center",
+    "@media (max-width: 600px)": {
+        position: "static",
+        padding: "15px",
+    },
 });
 
 export const Tile = styled("h1")({
@@ -43,11 +50,17 @@ export const Tile = styled("h1")({
     textAlign: "left",
     fontSize: "64px",
     marginTop: "0",
+    "@media (max-width: 600px)": {
+        fontSize: "32px",
+    },
 });
 
 export const SubTile = styled("h3")({
     color: "white",
     textAlign: "left",
+    "@media (max-width: 600px)": {
+        fontSize: "16px",
+    },
 });
 
 const AuthenticationForm = styled("div")({
@@ -56,5 +69,11 @@ const AuthenticationForm = styled("div")({
     right: "20%",
     transform: "translate(0, -50%)",
     width: "400px",
+    "@media (max-width: 600px)": {
+        position: "static",
+        transform: "translate(0,0)",
+        padding: "15px",
+        width: "100%",
+    },
 });
 export default Login;

@@ -48,8 +48,6 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setSingingSectio
     };
 
     const handleSignIn = () => {
-        handleEmailError();
-        handlePasswordError();
         if (handleEmailError() || handlePasswordError()) {
             console.error("validation problem");
         } else {
@@ -92,6 +90,9 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setSingingSectio
 export const Title = styled("h3")({
     color: "white",
     textAlign: "center",
+    "@media (max-width: 600px)": {
+        fontSize: "16px",
+    },
 });
 
 const StyledDialogActions = styled(DialogActions)({
@@ -123,7 +124,7 @@ export const StyledInput = styled("input")({
 
 export const ErrorLabel = styled("div")({
     color: "white",
-    margin: "10px 10px",
+    margin: "5px 10px",
 });
 
 export default SignInForm;
