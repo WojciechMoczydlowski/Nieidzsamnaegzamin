@@ -1,14 +1,7 @@
-import { ErrorLabel, StyledInput, Title } from "$components/SignInForm";
-import { SingingSection } from "$pages/LandingPage";
 import loginManager from "$services/loginManager";
-import { Button, DialogActions, DialogContentText } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
 import React, { useState } from "react";
-type SignUpFormProps = {
-    setSingingSection: (signInSection: SingingSection) => void;
-};
 
-const SignUpForm: React.FunctionComponent<SignUpFormProps> = ({ setSingingSection }) => {
+const SignUpForm: React.FunctionComponent = () => {
     const [name, setName] = useState<string>("");
     const [lastName, setLastName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
@@ -71,6 +64,10 @@ const SignUpForm: React.FunctionComponent<SignUpFormProps> = ({ setSingingSectio
     };
 
     const handleSignUp = () => {
+        handleNameError();
+        handleLastNameError();
+        handleEmailError();
+        handlePasswordError();
         if (handleNameError() || handleLastNameError() || handleEmailError() || handlePasswordError()) {
             console.error("validation problem");
         } else {
@@ -80,8 +77,9 @@ const SignUpForm: React.FunctionComponent<SignUpFormProps> = ({ setSingingSectio
         }
     };
     return (
-        <>
-            <Title>Uzupełnij swoje dane</Title>
+        <div>
+            signUpForm
+            {/* <Title>Uzupełnij swoje dane</Title>
             <InputWrapper>
                 <StyledInput value={name} onChange={e => setName(e.target.value)} placeholder={"Imię"} />
                 {nameError && <ErrorLabel>{nameError}</ErrorLabel>}
@@ -98,30 +96,28 @@ const SignUpForm: React.FunctionComponent<SignUpFormProps> = ({ setSingingSectio
                 {passwordError && <ErrorLabel>{passwordError}</ErrorLabel>}
             </InputWrapper>
             <StyledDialogActions>
-                <Button color="primary" onClick={() => setSingingSection("signing_in")}>
-                    Wstecz
-                </Button>
+                <Button color="primary">Wstecz</Button>
                 <Button color="primary" onClick={handleSignUp}>
                     Załóż konto
                 </Button>
-            </StyledDialogActions>
-        </>
+            </StyledDialogActions> */}
+        </div>
     );
 };
-const StyledDialogContentText = styled(DialogContentText)({
-    textAlign: "center",
-});
+// const StyledDialogContentText = styled(DialogContentText)({
+//     textAlign: "center",
+// });
 
-const StyledDialogActions = styled(DialogActions)({
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-});
+// const StyledDialogActions = styled(DialogActions)({
+//     display: "flex",
+//     flexDirection: "row",
+//     justifyContent: "center",
+// });
 
-const InputWrapper = styled("div")({
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-});
+// const InputWrapper = styled("div")({
+//     display: "flex",
+//     flexDirection: "column",
+//     justifyContent: "center",
+// });
 
 export default SignUpForm;

@@ -1,79 +1,69 @@
-import mainBackground from "$assets/mainBackground.jpg";
+import landingPageBackground from "$assets/landingPageBackground.png";
 import SignInForm from "$components/SignInForm";
 import SignUpForm from "$components/SignUpForm";
+import { Tab, Tabs } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import React, { useState } from "react";
 export type SingingSection = "signing_in" | "signing_up";
 
-const Login: React.FunctionComponent = () => {
-    const [singingSection, setSingingSection] = useState<SingingSection>("signing_in");
-
+const LandingPage: React.FunctionComponent = () => {
+    const [section, setSection] = useState(0);
+    function handleChange(event: React.ChangeEvent<{}>, newValue: number) {
+        setSection(newValue);
+    }
     return (
-        <BackgroundPicture>
-            <TitleWrapper>
-                <Tile> Nie idź sam na egzamin</Tile>
-                <SubTile>Dodawaj ezgaminy</SubTile>
-                <SubTile>Módl się za innych</SubTile>
-            </TitleWrapper>
-            <AuthenticationForm>
-                {(singingSection === "signing_in" && <SignInForm setSingingSection={setSingingSection} />) ||
-                    (singingSection === "signing_up" && <SignUpForm setSingingSection={setSingingSection} />)}
-            </AuthenticationForm>
-        </BackgroundPicture>
+        <LandingPageWrapper>
+            <LeftSide></LeftSide>
+            <RightSide>
+                <LoginCard>
+                    <Tabs value={section} onChange={handleChange} indicatorColor="primary" textColor="primary" centered>
+                        <Tab label={<TabText>Zaloguj</TabText>} />
+                        <Tab label={<TabText>Zarejestruj</TabText>} />
+                    </Tabs>
+                    {section === 0 && <SignInForm />}
+                    {section === 1 && <SignUpForm />}
+                </LoginCard>
+            </RightSide>
+        </LandingPageWrapper>
     );
 };
 
-export const BackgroundPicture = styled("div")({
+const LandingPageWrapper = styled("div")({
     height: "100vh",
     width: "100%",
-    backgroundImage: `url(${mainBackground})`,
-    position: "relative",
-    "@media (max-width: 600px)": {
-        backgroundPosition: "center",
-    },
+    display: "flex",
+    flexDirection: "row",
 });
 
-export const TitleWrapper = styled("div")({
-    color: "white",
-    position: "absolute",
-    top: "5%",
-    left: "5%",
-    textAlign: "center",
-    "@media (max-width: 600px)": {
-        position: "static",
-        padding: "15px",
-    },
+const RightSide = styled("div")({
+    backgroundImage: `url(${landingPageBackground})`,
+    backgroundSize: "cover",
+    width: "50%",
+    display: "grid",
+    gridTemplateColumns: "1fr auto 1fr",
+    gridTemplateRows: "202fr auto 168fr",
 });
 
-export const Tile = styled("h1")({
-    color: "white",
-    textAlign: "left",
-    fontSize: "64px",
-    marginTop: "0",
-    "@media (max-width: 600px)": {
-        fontSize: "32px",
-    },
+const LoginCard = styled("div")({
+    background: "#FFFFFF 0% 0% no-repeat padding-box",
+    borderRadius: "25px",
+    opacity: 1,
+    height: "530px",
+    width: "412px",
+    padding: "6px 42px",
+    gridColumnStart: 2,
+    gridColumnEnd: 3,
+    gridRowStart: 2,
+    gridRowEnd: 3,
 });
 
-export const SubTile = styled("h3")({
-    color: "white",
-    textAlign: "left",
-    "@media (max-width: 600px)": {
-        fontSize: "16px",
-    },
+const LeftSide = styled("div")({
+    width: "50%",
 });
 
-const AuthenticationForm = styled("div")({
-    position: "absolute",
-    top: "50%",
-    right: "20%",
-    transform: "translate(0, -50%)",
-    width: "400px",
-    "@media (max-width: 600px)": {
-        position: "static",
-        transform: "translate(0,0)",
-        padding: "15px",
-        width: "100%",
-    },
+const TabText = styled("div")({
+    font: "700 14px/17px Roboto",
+    letterSpacing: " 1.25px",
 });
-export default Login;
+
+export default LandingPage;

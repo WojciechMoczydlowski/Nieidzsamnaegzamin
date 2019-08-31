@@ -1,20 +1,19 @@
-import firebase from "$configuration/firebase";
-import { SingingSection } from "$pages/LandingPage";
-import { Button, DialogActions } from "@material-ui/core";
+import eye from "$assets/eye.svg";
+import facebook from "$assets/facebook.svg";
+import google from "$assets/google.svg";
+import { Button, CardActionArea } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import React, { useState } from "react";
 
-type SignInFormProps = {
-    setSingingSection: (signInSection: SingingSection) => void;
-};
+type PasswordType = "text" | "password";
 
-const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setSingingSection }) => {
+const SignInForm: React.FunctionComponent = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
     const [emailError, setEmailError] = useState<string | undefined>(undefined);
     const [passwordError, setPasswordError] = useState<string | undefined>(undefined);
-
+    const [passwordType, setPasswordType] = useState<PasswordType>("password");
     const handleEmailError = () => {
         if (email === "") {
             let error = "Email jest wymagany";
@@ -51,80 +50,139 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setSingingSectio
         if (handleEmailError() || handlePasswordError()) {
             console.error("validation problem");
         } else {
-            firebase
-                .auth()
-                .signInWithEmailAndPassword(email, password)
-                .catch(function(error) {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    console.error(errorCode, errorMessage);
-                });
         }
+    };
+
+    const handleShowPassword = () => {
+        if (passwordType === "password") setPasswordType("text");
+        else setPasswordType("password");
     };
     return (
         <>
-            <Title>Aby się zalogować, uzupełnij swoje dane</Title>
+            <FacebookLogin>
+                <Text>ZALOGUJ PRZEZ FACEBOOK</Text>
+
+                <SocialMediaIcon src={facebook} alt="facebook" />
+            </FacebookLogin>
+            <GoogleLogin>
+                <Text>ZALOGUJ PRZEZ GOOGLE</Text>
+                <SocialMediaIcon src={google} alt="google" />
+            </GoogleLogin>
+            <Information>lub zaloguj przez email:</Information>
             <InputWrapper>
                 <StyledInput value={email} onChange={e => setEmail(e.target.value)} placeholder={"Email"} />
-                {emailError && <ErrorLabel>{emailError}</ErrorLabel>}
+            </InputWrapper>
+            <InputWrapper>
                 <StyledInput
-                    type={"password"}
+                    type={passwordType}
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     placeholder={"Hasło"}
                 />
-                {passwordError && <ErrorLabel>{passwordError}</ErrorLabel>}
+                <EyeIcon src={eye} alt="eye" onClick={handleShowPassword} />
             </InputWrapper>
 
-            <StyledDialogActions>
-                <Button color="primary" onClick={handleSignIn}>
-                    Zaloguj
-                </Button>
-                <Button color="primary" onClick={() => setSingingSection("signing_up")}>
-                    Zarejestruj
-                </Button>
-            </StyledDialogActions>
+            <LoginButton>
+                <Text>ZALOGUJ</Text>
+            </LoginButton>
+            <RememberPassword>Nie pamiętasz hasła?</RememberPassword>
         </>
     );
 };
-export const Title = styled("h3")({
-    color: "white",
-    textAlign: "center",
-    "@media (max-width: 600px)": {
-        fontSize: "16px",
-    },
+
+const FacebookLogin = styled(CardActionArea)({
+    width: "100%",
+    height: "56px",
+    margin: "20px 0",
+    display: "flex",
+    position: "relative",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "transparent linear-gradient(90deg, #3C5A99 0%, #8088FF 100%) 0% 0% no-repeat padding-box",
+    borderRadius: "4px",
 });
 
-const StyledDialogActions = styled(DialogActions)({
+const GoogleLogin = styled(CardActionArea)({
+    width: "100%",
+    height: "56px",
+    margin: "20px 0",
     display: "flex",
-    flexDirection: "row",
+    position: "relative",
     justifyContent: "center",
+    alignItems: "center",
+    background: "transparent linear-gradient(90deg, #DB4437 0%, #8088FF 100%) 0% 0% no-repeat padding-box",
+    borderRadius: "4px",
+});
+
+const Information = styled("div")({
+    textAlign: "center",
+    font: "400 12px/14px Roboto",
+    letterSpacing: "0.4px",
+    color: "#000000",
+    opacity: 0.6,
+});
+
+const RememberPassword = styled("div")({
+    textAlign: "center",
+    font: "400 12px/14px Roboto",
+    letterSpacing: "0.4px",
+    color: "#000000",
+    opacity: 0.6,
+    cursor: "pointer",
+});
+
+const SocialMediaIcon = styled("img")({
+    position: "absolute",
+    top: "50%",
+    left: "52px",
+    transform: "translate(0,-50%)",
+});
+
+const LoginButton = styled(Button)({
+    width: "100%",
+    height: "56px",
+    margin: "20px 0",
+    display: "flex",
+    position: "relative",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: "4px",
+    background: "transparent linear-gradient(90deg, #007BFA 0%, #8088FF 100%) 0% 0% no-repeat padding-box",
+});
+
+const Text = styled("div")({
+    letterSpacing: 0,
+    color: "#FFFFFF",
+    font: "500 14px/17px Roboto",
 });
 
 const InputWrapper = styled("div")({
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
+    position: "relative",
+    marginTop: "20px",
 });
 
 export const StyledInput = styled("input")({
-    marginTop: "10px",
-    padding: "15px",
-    color: "white",
-    border: "1px solid white",
+    border: "1px solid #000000",
+    padding: "16px 18px",
+    width: "100%",
+    opacity: 0.6,
+    color: "#000000",
     outline: "none",
-    borderRadius: "20px",
-    background: "transparent",
-    fontWeight: "bold",
-    "&::placeholder": {
-        color: "white",
-        fontWeight: "normal",
-    },
+    borderRadius: "4px",
+    fontSize: "16px ",
 });
 
-export const ErrorLabel = styled("div")({
-    color: "white",
-    margin: "5px 10px",
+const EyeIcon = styled("img")({
+    position: "absolute",
+    top: "50%",
+    right: "12px",
+    transform: "translate(0,-50%)",
+    cursor: "pointer",
 });
+
+// export const ErrorLabel = styled("div")({
+//     color: "white",
+//     margin: "5px 10px",
+// });
 
 export default SignInForm;

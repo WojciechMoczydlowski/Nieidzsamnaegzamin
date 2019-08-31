@@ -17,6 +17,22 @@ class LoginManager {
         dynamicLinkDomain: "https://nieidzsamnaegzamin-3d87b.web.app",
     };
 
+    public trySignInWithEmailAndPassword = (
+        email: string,
+        password: string,
+        setDirtyLoader: (loader: boolean) => void,
+    ) => {
+        setDirtyLoader(true);
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then(() => setDirtyLoader(false))
+            .catch(error => {
+                setDirtyLoader(false);
+                return error;
+            });
+    };
+
     public trySignUp = (email: string, password: string, name: string, lastName: string) => {
         firebase
             .auth()
@@ -42,7 +58,7 @@ class LoginManager {
             });
     };
 
-    public trySignInWtihEmail = email => {
+    public trySignInWtihEmailLink = email => {
         firebase
             .auth()
             .sendSignInLinkToEmail(email, this.actionCodeSettings)
@@ -53,19 +69,6 @@ class LoginManager {
             .catch(function(error) {
                 console.error(error);
             });
-    };
-
-    public verifyYourEmail = () => {
-        const user = firebase.auth().currentUser;
-
-        user &&
-            user
-                .sendEmailVerification()
-                .then(function() {})
-                .then(() => console.error(firebase.auth().currentUser))
-                .catch(function(error) {
-                    console.error(error);
-                });
     };
 
     public sendPasswordResetEmail = email => {
