@@ -1,11 +1,18 @@
+import eye from "$assets/eye.svg";
+import { EyeIcon, InputWrapper, PasswordType, StyledInput, Text } from "$components/SignInForm";
 import loginManager from "$services/loginManager";
+import { Button } from "@material-ui/core";
+import { styled } from "@material-ui/styles";
 import React, { useState } from "react";
-
 const SignUpForm: React.FunctionComponent = () => {
     const [name, setName] = useState<string>("");
     const [lastName, setLastName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [secondPassword, setSecondPassword] = useState<string>("");
+
+    const [firstPasswordType, setFirstPasswordType] = useState<PasswordType>("password");
+    const [secondPasswordType, setSecondPasswordType] = useState<PasswordType>("password");
 
     const [nameError, setNameError] = useState<string | undefined>(undefined);
     const [lastNameError, setLastNameError] = useState<string | undefined>(undefined);
@@ -76,48 +83,67 @@ const SignUpForm: React.FunctionComponent = () => {
             console.error("signUp");
         }
     };
+
+    const handleShowPassword = (formNumber: string) => {
+        if (formNumber === "first") {
+            if (firstPasswordType === "password") setFirstPasswordType("text");
+            else setFirstPasswordType("password");
+        }
+        if (formNumber === "second") {
+            if (secondPasswordType === "password") setSecondPasswordType("text");
+            else setSecondPasswordType("password");
+        }
+    };
     return (
-        <div>
-            signUpForm
-            {/* <Title>Uzupełnij swoje dane</Title>
+        <>
             <InputWrapper>
-                <StyledInput value={name} onChange={e => setName(e.target.value)} placeholder={"Imię"} />
-                {nameError && <ErrorLabel>{nameError}</ErrorLabel>}
+                <StyledInput value={name} onChange={e => setName(e.target.value)} placeholder={"Wprowadź imię"} />
+            </InputWrapper>
+            <InputWrapper>
                 <StyledInput value={lastName} onChange={e => setLastName(e.target.value)} placeholder={"Nazwisko"} />
-                {lastNameError && <ErrorLabel>{lastNameError}</ErrorLabel>}
+            </InputWrapper>
+            <InputWrapper>
                 <StyledInput value={email} onChange={e => setEmail(e.target.value)} placeholder={"Email"} />
-                {emailError && <ErrorLabel>{emailError}</ErrorLabel>}
+            </InputWrapper>
+            <InputWrapper>
                 <StyledInput
-                    type={"password"}
+                    type={firstPasswordType}
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     placeholder={"Hasło"}
                 />
-                {passwordError && <ErrorLabel>{passwordError}</ErrorLabel>}
+                <EyeIcon src={eye} alt="eye" onClick={() => handleShowPassword("first")} />
             </InputWrapper>
-            <StyledDialogActions>
-                <Button color="primary">Wstecz</Button>
-                <Button color="primary" onClick={handleSignUp}>
-                    Załóż konto
-                </Button>
-            </StyledDialogActions> */}
-        </div>
+            <InputWrapper>
+                <StyledInput
+                    type={secondPasswordType}
+                    value={secondPassword}
+                    onChange={e => setSecondPassword(e.target.value)}
+                    placeholder={"Hasło"}
+                />
+                <EyeIcon src={eye} alt="eye" onClick={() => handleShowPassword("second")} />
+            </InputWrapper>
+
+            <RegisterButton>
+                <Text>ZAREJESTRUJ</Text>
+            </RegisterButton>
+        </>
     );
 };
-// const StyledDialogContentText = styled(DialogContentText)({
-//     textAlign: "center",
-// });
 
-// const StyledDialogActions = styled(DialogActions)({
-//     display: "flex",
-//     flexDirection: "row",
-//     justifyContent: "center",
-// });
-
-// const InputWrapper = styled("div")({
-//     display: "flex",
-//     flexDirection: "column",
-//     justifyContent: "center",
-// });
+export const RegisterButton = styled(Button)({
+    width: "100%",
+    height: "56px",
+    margin: "20px 0",
+    display: "flex",
+    position: "relative",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: "4px",
+    backgroundColor: "#2699FB",
+    "&:hover": {
+        backgroundColor: "#2699FB",
+    },
+});
 
 export default SignUpForm;

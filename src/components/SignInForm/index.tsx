@@ -1,13 +1,17 @@
 import eye from "$assets/eye.svg";
 import facebook from "$assets/facebook.svg";
 import google from "$assets/google.svg";
+import { LoginSection } from "$pages/LandingPage";
 import { Button, CardActionArea } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import React, { useState } from "react";
 
-type PasswordType = "text" | "password";
+export type PasswordType = "text" | "password";
 
-const SignInForm: React.FunctionComponent = () => {
+type SignInFormProps = {
+    setLoginSection: (loginSection: LoginSection) => void;
+};
+const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setLoginSection }) => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
@@ -60,13 +64,12 @@ const SignInForm: React.FunctionComponent = () => {
     return (
         <>
             <FacebookLogin>
-                <Text>ZALOGUJ PRZEZ FACEBOOK</Text>
-
                 <SocialMediaIcon src={facebook} alt="facebook" />
+                <Text>ZALOGUJ PRZEZ FACEBOOK</Text>
             </FacebookLogin>
             <GoogleLogin>
-                <Text>ZALOGUJ PRZEZ GOOGLE</Text>
                 <SocialMediaIcon src={google} alt="google" />
+                <Text>ZALOGUJ PRZEZ GOOGLE</Text>
             </GoogleLogin>
             <Information>lub zaloguj przez email:</Information>
             <InputWrapper>
@@ -85,7 +88,9 @@ const SignInForm: React.FunctionComponent = () => {
             <LoginButton>
                 <Text>ZALOGUJ</Text>
             </LoginButton>
-            <RememberPassword>Nie pamiętasz hasła?</RememberPassword>
+            <ActionInformation onClick={() => setLoginSection("recover_account")}>
+                Nie pamiętasz hasła?
+            </ActionInformation>
         </>
     );
 };
@@ -114,7 +119,7 @@ const GoogleLogin = styled(CardActionArea)({
     borderRadius: "4px",
 });
 
-const Information = styled("div")({
+export const Information = styled("div")({
     textAlign: "center",
     font: "400 12px/14px Roboto",
     letterSpacing: "0.4px",
@@ -122,23 +127,21 @@ const Information = styled("div")({
     opacity: 0.6,
 });
 
-const RememberPassword = styled("div")({
+export const ActionInformation = styled("div")({
     textAlign: "center",
     font: "400 12px/14px Roboto",
     letterSpacing: "0.4px",
     color: "#000000",
     opacity: 0.6,
     cursor: "pointer",
+    margin: "20px 0",
 });
 
 const SocialMediaIcon = styled("img")({
-    position: "absolute",
-    top: "50%",
-    left: "52px",
-    transform: "translate(0,-50%)",
+    marginRight: "16px",
 });
 
-const LoginButton = styled(Button)({
+export const LoginButton = styled(Button)({
     width: "100%",
     height: "56px",
     margin: "20px 0",
@@ -150,13 +153,13 @@ const LoginButton = styled(Button)({
     background: "transparent linear-gradient(90deg, #007BFA 0%, #8088FF 100%) 0% 0% no-repeat padding-box",
 });
 
-const Text = styled("div")({
+export const Text = styled("div")({
     letterSpacing: 0,
     color: "#FFFFFF",
     font: "500 14px/17px Roboto",
 });
 
-const InputWrapper = styled("div")({
+export const InputWrapper = styled("div")({
     position: "relative",
     marginTop: "20px",
 });
@@ -170,19 +173,17 @@ export const StyledInput = styled("input")({
     outline: "none",
     borderRadius: "4px",
     fontSize: "16px ",
+    "&:focus": {
+        border: "2px solid #2699FB",
+    },
 });
 
-const EyeIcon = styled("img")({
+export const EyeIcon = styled("img")({
     position: "absolute",
     top: "50%",
     right: "12px",
     transform: "translate(0,-50%)",
     cursor: "pointer",
 });
-
-// export const ErrorLabel = styled("div")({
-//     color: "white",
-//     margin: "5px 10px",
-// });
 
 export default SignInForm;
