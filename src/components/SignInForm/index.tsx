@@ -1,68 +1,39 @@
 import eye from "$assets/eye.svg";
 import facebook from "$assets/facebook.svg";
 import google from "$assets/google.svg";
+import { SplashScreen } from "$components/SplashScreen";
 import { LoginSection } from "$pages/LandingPage";
+import loginManager, { ServerLoginError } from "$services/loginManager";
 import { Button, CardActionArea } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import React, { useState } from "react";
-
 export type PasswordType = "text" | "password";
 
 type SignInFormProps = {
     setLoginSection: (loginSection: LoginSection) => void;
 };
+
 const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setLoginSection }) => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
-    const [emailError, setEmailError] = useState<string | undefined>(undefined);
-    const [passwordError, setPasswordError] = useState<string | undefined>(undefined);
     const [passwordType, setPasswordType] = useState<PasswordType>("password");
-    const handleEmailError = () => {
-        if (email === "") {
-            let error = "Email jest wymagany";
-            setEmailError(error);
-            return error;
-        }
-        if (!validateEmail(email)) {
-            let error = "Niepoprawny format email";
-            setEmailError(error);
-            return error;
-        }
-
-        setEmailError(undefined);
-        return undefined;
-    };
-
-    const handlePasswordError = () => {
-        if (password === "") {
-            let error = "Hasło jest wymagane";
-            setPasswordError(error);
-            return error;
-        }
-
-        setPasswordError(undefined);
-        return undefined;
-    };
-
-    const validateEmail = email => {
-        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    };
+    const [dirtyLoader, setDirtyLoader] = useState(false);
+    const [serverError, setServerError] = useState<ServerLoginError | undefined>(undefined);
 
     const handleSignIn = () => {
-        if (handleEmailError() || handlePasswordError()) {
-            console.error("validation problem");
-        } else {
-        }
+        console.error("signIn");
+        loginManager.trySignInWithEmailAndPassword(email, password, setDirtyLoader, setServerError);
     };
 
     const handleShowPassword = () => {
         if (passwordType === "password") setPasswordType("text");
         else setPasswordType("password");
     };
+
     return (
         <>
+            {dirtyLoader && <SplashScreen />}
             <FacebookLogin>
                 <SocialMediaIcon src={facebook} alt="facebook" />
                 <Text>ZALOGUJ PRZEZ FACEBOOK</Text>
@@ -85,7 +56,7 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setLoginSection 
                 <EyeIcon src={eye} alt="eye" onClick={handleShowPassword} />
             </InputWrapper>
 
-            <LoginButton>
+            <LoginButton onClick={() => handleSignIn()}>
                 <Text>ZALOGUJ</Text>
             </LoginButton>
             <ActionInformation onClick={() => setLoginSection("recover_account")}>
@@ -184,6 +155,15 @@ export const EyeIcon = styled("img")({
     right: "12px",
     transform: "translate(0,-50%)",
     cursor: "pointer",
+});
+
+export const ErrorLabel = styled("div")({
+    textAlign: "left",
+    font: "400 12px/14px Roboto",
+    letterSpacing: "0.4px",
+    color: "#DB4437",
+    marginTop: "4px",
+    marginLeft: "16px",
 });
 
 export default SignInForm;

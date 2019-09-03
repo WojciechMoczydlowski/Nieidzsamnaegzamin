@@ -1,5 +1,6 @@
 import leftArrow from "$assets/leftArrow.svg";
 import { InputWrapper, LoginButton, StyledInput, Text } from "$components/SignInForm";
+import { SplashScreen } from "$components/SplashScreen";
 import { LoginSection } from "$pages/LandingPage";
 import { Button } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
@@ -12,7 +13,7 @@ const RecoverAccount: React.FunctionComponent<RecoverAccountProps> = ({ setLogin
     const [email, setEmail] = useState<string>("");
 
     const [emailError, setEmailError] = useState<string | undefined>(undefined);
-
+    const [dirtyLoader, setDirtyLoader] = useState(false);
     const validateEmail = email => {
         let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
@@ -36,6 +37,7 @@ const RecoverAccount: React.FunctionComponent<RecoverAccountProps> = ({ setLogin
 
     return (
         <>
+            {dirtyLoader && <SplashScreen />}
             <InputWrapper>
                 <StyledInput value={email} onChange={e => setEmail(e.target.value)} placeholder={"Email"} />
             </InputWrapper>

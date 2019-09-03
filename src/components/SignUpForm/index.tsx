@@ -1,5 +1,6 @@
 import eye from "$assets/eye.svg";
-import { EyeIcon, InputWrapper, PasswordType, StyledInput, Text } from "$components/SignInForm";
+import { ErrorLabel, EyeIcon, InputWrapper, PasswordType, StyledInput, Text } from "$components/SignInForm";
+import { SplashScreen } from "$components/SplashScreen";
 import loginManager from "$services/loginManager";
 import { Button } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
@@ -11,6 +12,7 @@ const SignUpForm: React.FunctionComponent = () => {
     const [password, setPassword] = useState<string>("");
     const [secondPassword, setSecondPassword] = useState<string>("");
 
+    const [dirtyLoader, setDirtyLoader] = useState(false);
     const [firstPasswordType, setFirstPasswordType] = useState<PasswordType>("password");
     const [secondPasswordType, setSecondPasswordType] = useState<PasswordType>("password");
 
@@ -62,6 +64,11 @@ const SignUpForm: React.FunctionComponent = () => {
             setPasswordError(error);
             return error;
         }
+        if (password !== secondPassword) {
+            let error = "Hasła się różnią";
+            setPasswordError(error);
+            return error;
+        }
         setPasswordError(undefined);
         return undefined;
     };
@@ -78,9 +85,7 @@ const SignUpForm: React.FunctionComponent = () => {
         if (handleNameError() || handleLastNameError() || handleEmailError() || handlePasswordError()) {
             console.error("validation problem");
         } else {
-            // loginManager.trySignUp(email, password, name, lastName);
-            loginManager.trySignUp(email, password, name, lastName);
-            console.error("signUp");
+            loginManager.trySignUpWithEmailAndPassword(email, password, name, lastName, setDirtyLoader);
         }
     };
 
@@ -96,14 +101,18 @@ const SignUpForm: React.FunctionComponent = () => {
     };
     return (
         <>
+            {dirtyLoader && <SplashScreen />}
             <InputWrapper>
                 <StyledInput value={name} onChange={e => setName(e.target.value)} placeholder={"Wprowadź imię"} />
+                {nameError && <ErrorLabel>{nameError}</ErrorLabel>}
             </InputWrapper>
             <InputWrapper>
                 <StyledInput value={lastName} onChange={e => setLastName(e.target.value)} placeholder={"Nazwisko"} />
+                {lastNameError && <ErrorLabel>{lastNameError}</ErrorLabel>}
             </InputWrapper>
             <InputWrapper>
                 <StyledInput value={email} onChange={e => setEmail(e.target.value)} placeholder={"Email"} />
+                {emailError && <ErrorLabel>{emailError}</ErrorLabel>}
             </InputWrapper>
             <InputWrapper>
                 <StyledInput
@@ -122,9 +131,10 @@ const SignUpForm: React.FunctionComponent = () => {
                     placeholder={"Hasło"}
                 />
                 <EyeIcon src={eye} alt="eye" onClick={() => handleShowPassword("second")} />
+                {passwordError && <ErrorLabel>{passwordError}</ErrorLabel>}
             </InputWrapper>
 
-            <RegisterButton>
+            <RegisterButton onClick={() => handleSignUp()}>
                 <Text>ZAREJESTRUJ</Text>
             </RegisterButton>
         </>
