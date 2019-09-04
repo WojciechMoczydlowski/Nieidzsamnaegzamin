@@ -3,7 +3,7 @@ import facebook from "$assets/facebook.svg";
 import google from "$assets/google.svg";
 import { SplashScreen } from "$components/SplashScreen";
 import { LoginSection } from "$pages/LandingPage";
-import loginManager, { ServerLoginError } from "$services/loginManager";
+import loginManager from "$services/loginManager";
 import { Button, CardActionArea } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import React, { useState } from "react";
@@ -19,7 +19,7 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setLoginSection 
 
     const [passwordType, setPasswordType] = useState<PasswordType>("password");
     const [dirtyLoader, setDirtyLoader] = useState(false);
-    const [serverError, setServerError] = useState<ServerLoginError | undefined>(undefined);
+    const [serverError, setServerError] = useState<string | undefined>(undefined);
 
     const handleSignIn = () => {
         console.error("signIn");
@@ -55,7 +55,7 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setLoginSection 
                 />
                 <EyeIcon src={eye} alt="eye" onClick={handleShowPassword} />
             </InputWrapper>
-
+            {serverError && <ErrorLabel>{serverError}</ErrorLabel>}
             <LoginButton onClick={() => handleSignIn()}>
                 <Text>ZALOGUJ</Text>
             </LoginButton>

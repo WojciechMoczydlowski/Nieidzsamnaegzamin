@@ -20,6 +20,7 @@ const SignUpForm: React.FunctionComponent = () => {
     const [lastNameError, setLastNameError] = useState<string | undefined>(undefined);
     const [emailError, setEmailError] = useState<string | undefined>(undefined);
     const [passwordError, setPasswordError] = useState<string | undefined>(undefined);
+    const [serverError, setServerError] = useState<string | undefined>(undefined);
 
     const handleNameError = () => {
         if (name === "") {
@@ -78,14 +79,14 @@ const SignUpForm: React.FunctionComponent = () => {
     };
 
     const handleSignUp = () => {
+        setServerError(undefined);
         handleNameError();
         handleLastNameError();
         handleEmailError();
         handlePasswordError();
         if (handleNameError() || handleLastNameError() || handleEmailError() || handlePasswordError()) {
-            console.error("validation problem");
         } else {
-            loginManager.trySignUpWithEmailAndPassword(email, password, name, lastName, setDirtyLoader);
+            loginManager.trySignUpWithEmailAndPassword(email, password, name, lastName, setDirtyLoader, setServerError);
         }
     };
 
@@ -133,7 +134,7 @@ const SignUpForm: React.FunctionComponent = () => {
                 <EyeIcon src={eye} alt="eye" onClick={() => handleShowPassword("second")} />
                 {passwordError && <ErrorLabel>{passwordError}</ErrorLabel>}
             </InputWrapper>
-
+            {serverError && <ErrorLabel>{serverError}</ErrorLabel>}
             <RegisterButton onClick={() => handleSignUp()}>
                 <Text>ZAREJESTRUJ</Text>
             </RegisterButton>
