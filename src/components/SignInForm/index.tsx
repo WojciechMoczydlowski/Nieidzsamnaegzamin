@@ -25,12 +25,12 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setLoginSection 
         loginManager.trySignInWithEmailAndPassword(email, password, setDirtyLoader, setServerError);
     };
 
-    const handleLoginWithGoogle = () => {
-        loginManager.loginWithGoogle();
+    const handleLoginWithGoogle = setServerError => {
+        loginManager.loginWithGoogle(setServerError);
     };
 
     const handleLoginWithFacebook = () => {
-        loginManager.loginWithFacebook();
+        loginManager.loginWithFacebook(setServerError);
     };
 
     const handleShowPassword = () => {

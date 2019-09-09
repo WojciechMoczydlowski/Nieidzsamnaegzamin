@@ -116,7 +116,7 @@ class LoginManager {
                 }
             });
     };
-    public loginWithGoogle = () => {
+    public loginWithGoogle = (setServerError: (serverError: string | undefined) => void) => {
         const provider = new firebase.auth.GoogleAuthProvider();
         provider.addScope("profile");
         firebase.auth().useDeviceLanguage();
@@ -124,37 +124,35 @@ class LoginManager {
             .auth()
             .signInWithPopup(provider)
             .then(function(result) {
-                if (result && result.additionalUserInfo && result.additionalUserInfo.profile &&result.additionalUserInfo.profile) {
-                    const {name = undefined} = {...result.additionalUserInfo.profile}
+                if (
+                    result &&
+                    result.additionalUserInfo &&
+                    result.additionalUserInfo.profile &&
+                    result.additionalUserInfo.profile
+                ) {
+                    const { name = undefined } = { ...result.additionalUserInfo.profile };
                     const user = firebaseClient.auth().currentUser;
-                    if(name){
+                    if (name) {
                         if (user && !user.displayName) {
                             user.updateProfile({
                                 displayName: name,
                             })
-                            .then(
-                                () => console.log("success"),
-                            )
-                            .catch(error => console.error(error));
+                                .then(() => console.log("success"))
+                                .catch(error => {
+                                   
+                                });
                         }
                     }
-
                 }
             })
             .catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // The email of the user's account used.
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                var credential = error.credential;
-                // ...
-                console.error(error);
+                if (error.code === "auth/account-exists-with-different-credential") {
+                    setServerError("Email w użyciu.Spróbuj zalogowac się innym dostawcą");
+                }
             });
     };
 
-    public loginWithFacebook = () => {
+    public loginWithFacebook = (setServerError: (serverError: string | undefined) => void) => {
         const provider = new firebase.auth.FacebookAuthProvider();
         // provider.addScope("name");
         firebase.auth().useDeviceLanguage();
@@ -162,33 +160,31 @@ class LoginManager {
             .auth()
             .signInWithPopup(provider)
             .then(function(result) {
-                if (result && result.additionalUserInfo && result.additionalUserInfo.profile &&result.additionalUserInfo.profile) {
-                    const {name = undefined} = {...result.additionalUserInfo.profile}
+                if (
+                    result &&
+                    result.additionalUserInfo &&
+                    result.additionalUserInfo.profile &&
+                    result.additionalUserInfo.profile
+                ) {
+                    const { name = undefined } = { ...result.additionalUserInfo.profile };
                     const user = firebaseClient.auth().currentUser;
-                    if(name){
+                    if (name) {
                         if (user && !user.displayName) {
                             user.updateProfile({
                                 displayName: name,
                             })
-                            .then(
-                                () => console.log("success"),
-                            )
-                            .catch(error => console.error(error));
+                                .then(() => console.log("success"))
+                                .catch(error => {
+                                  console.error(error);
+                                });
                         }
                     }
-
                 }
             })
             .catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // The email of the user's account used.
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                var credential = error.credential;
-                // ...
-                console.error(error);
+                if (error.code === "auth/account-exists-with-different-credential") {
+                    setServerError("Email w użyciu.Spróbuj zalogowac się innym dostawcą");
+                }
             });
     };
 
