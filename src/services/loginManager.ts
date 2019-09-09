@@ -156,7 +156,6 @@ class LoginManager {
                 }
                 setDirtyLoader(false);
             });
-      
     };
 
     public loginWithFacebook = (
@@ -200,7 +199,6 @@ class LoginManager {
                     setDirtyLoader(false);
                 }
             });
-    
     };
     public resetPassword = (
         email,
@@ -219,15 +217,14 @@ class LoginManager {
             })
             .catch(function(error) {
                 const errorCode = error.code;
-                if(errorCode === "auth/invalid-email"){
+                if (errorCode === "auth/invalid-email") {
                     setServerError("Niepoprawny format email");
                 }
-                if(errorCode === "auth/user-not-found"){
-                    setServerError("Nie istnieje konto przypisane do danego emaila"); 
+                if (errorCode === "auth/user-not-found") {
+                    setServerError("Nie istnieje konto przypisane do danego emaila");
                 }
                 setDirtyLoader(false);
             });
-
     };
 
     public signOut = () => {
