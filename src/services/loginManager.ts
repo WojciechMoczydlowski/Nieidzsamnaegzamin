@@ -116,7 +116,11 @@ class LoginManager {
                 }
             });
     };
-    public loginWithGoogle = (setServerError: (serverError: string | undefined) => void) => {
+    public loginWithGoogle = (
+        setServerError: (serverError: string | undefined) => void,
+        setDirtyLoader: (loader: boolean) => void,
+    ) => {
+        setDirtyLoader(true);
         const provider = new firebase.auth.GoogleAuthProvider();
         provider.addScope("profile");
         firebase.auth().useDeviceLanguage();
@@ -138,9 +142,7 @@ class LoginManager {
                                 displayName: name,
                             })
                                 .then(() => console.log("success"))
-                                .catch(error => {
-                                   
-                                });
+                                .catch(error => {});
                         }
                     }
                 }
@@ -150,9 +152,14 @@ class LoginManager {
                     setServerError("Email w użyciu.Spróbuj zalogowac się innym dostawcą");
                 }
             });
+            setDirtyLoader(false);
     };
 
-    public loginWithFacebook = (setServerError: (serverError: string | undefined) => void) => {
+    public loginWithFacebook = (
+        setServerError: (serverError: string | undefined) => void,
+        setDirtyLoader: (loader: boolean) => void,
+    ) => {
+        setDirtyLoader(true);
         const provider = new firebase.auth.FacebookAuthProvider();
         // provider.addScope("name");
         firebase.auth().useDeviceLanguage();
@@ -175,7 +182,7 @@ class LoginManager {
                             })
                                 .then(() => console.log("success"))
                                 .catch(error => {
-                                  console.error(error);
+                                    console.error(error);
                                 });
                         }
                     }
@@ -186,6 +193,7 @@ class LoginManager {
                     setServerError("Email w użyciu.Spróbuj zalogowac się innym dostawcą");
                 }
             });
+            setDirtyLoader(false);
     };
 
     public signOut = () => {

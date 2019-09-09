@@ -26,11 +26,11 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setLoginSection 
     };
 
     const handleLoginWithGoogle = setServerError => {
-        loginManager.loginWithGoogle(setServerError);
+        loginManager.loginWithGoogle(setServerError, setDirtyLoader);
     };
 
     const handleLoginWithFacebook = () => {
-        loginManager.loginWithFacebook(setServerError);
+        loginManager.loginWithFacebook(setServerError, setDirtyLoader);
     };
 
     const handleShowPassword = () => {
