@@ -1,5 +1,6 @@
 import firebaseClient from "$configuration/firebase.ts";
 import firebase from "firebase";
+import { LoginSection } from "$pages/LandingPage";
 export type ServerLoginError =
     | "auth/invalid-email"
     | "auth/user-disabled"
@@ -147,13 +148,15 @@ class LoginManager {
                     }
                 }
                 setServerError(undefined);
+                setDirtyLoader(false);
             })
             .catch(function(error) {
                 if (error.code === "auth/account-exists-with-different-credential") {
                     setServerError("Email w użyciu.Spróbuj zalogowac się innym dostawcą");
                 }
+                setDirtyLoader(false);
             });
-        setDirtyLoader(false);
+      
     };
 
     public loginWithFacebook = (
@@ -189,13 +192,42 @@ class LoginManager {
                     }
                 }
                 setServerError(undefined);
+                setDirtyLoader(false);
             })
             .catch(function(error) {
                 if (error.code === "auth/account-exists-with-different-credential") {
                     setServerError("Email w użyciu.Spróbuj zalogowac się innym dostawcą");
+                    setDirtyLoader(false);
                 }
             });
-        setDirtyLoader(false);
+    
+    };
+    public resetPassword = (
+        email,
+        setDirtyLoader: (loader: boolean) => void,
+        setServerError: (serverError: string | undefined) => void,
+        setInformation: (information: string | undefined) => void,
+    ) => {
+        setDirtyLoader(true);
+        firebase
+            .auth()
+            .sendPasswordResetEmail(email)
+            .then(function() {
+                setDirtyLoader(false);
+                setServerError(undefined);
+                setInformation("Wiadomość została poprawnie wysłana");
+            })
+            .catch(function(error) {
+                const errorCode = error.code;
+                if(errorCode === "auth/invalid-email"){
+                    setServerError("Niepoprawny format email");
+                }
+                if(errorCode === "auth/user-not-found"){
+                    setServerError("Nie istnieje konto przypisane do danego emaila"); 
+                }
+                setDirtyLoader(false);
+            });
+
     };
 
     public signOut = () => {
