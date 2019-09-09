@@ -1,5 +1,5 @@
-import firebase from "$configuration/firebase.ts";
-
+import firebaseClient from "$configuration/firebase.ts";
+import firebase from "firebase";
 export type ServerLoginError =
     | "auth/invalid-email"
     | "auth/user-disabled"
@@ -13,7 +13,6 @@ export type ServerRegistrationError =
     | "auth/weak-password";
 
 class LoginManager {
-    
     private handleLoginError = (errorCode: ServerLoginError): string | undefined => {
         switch (errorCode) {
             case "auth/invalid-email":
@@ -66,7 +65,7 @@ class LoginManager {
         setServerError: (serverError: string | undefined) => void,
     ) => {
         setDirtyLoader(true);
-        firebase
+        firebaseClient
             .auth()
             .signInWithEmailAndPassword(email, password)
             .then(() => {
@@ -91,7 +90,7 @@ class LoginManager {
         setServerError: (serverError: string | undefined) => void,
     ) => {
         setDirtyLoader(true);
-        firebase
+        firebaseClient
             .auth()
             .createUserWithEmailAndPassword(email, password)
             .then(result => {
@@ -102,7 +101,6 @@ class LoginManager {
                     user
                         .updateProfile({
                             displayName: `${name} ${lastName}`,
-                            photoURL: "https://example.com/jane-q-user/profile.jpg",
                         })
                         .then(
                             () => console.log("success"),
@@ -118,11 +116,84 @@ class LoginManager {
                 }
             });
     };
+    public loginWithGoogle = () => {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope("profile");
+        firebase.auth().useDeviceLanguage();
+        firebase
+            .auth()
+            .signInWithPopup(provider)
+            .then(function(result) {
+                if (result && result.additionalUserInfo && result.additionalUserInfo.profile &&result.additionalUserInfo.profile) {
+                    const {name = undefined} = {...result.additionalUserInfo.profile}
+                    const user = firebaseClient.auth().currentUser;
+                    if(name){
+                        if (user && !user.displayName) {
+                            user.updateProfile({
+                                displayName: name,
+                            })
+                            .then(
+                                () => console.log("success"),
+                            )
+                            .catch(error => console.error(error));
+                        }
+                    }
 
-  
+                }
+            })
+            .catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                // ...
+                console.error(error);
+            });
+    };
+
+    public loginWithFacebook = () => {
+        const provider = new firebase.auth.FacebookAuthProvider();
+        // provider.addScope("name");
+        firebase.auth().useDeviceLanguage();
+        firebase
+            .auth()
+            .signInWithPopup(provider)
+            .then(function(result) {
+                if (result && result.additionalUserInfo && result.additionalUserInfo.profile &&result.additionalUserInfo.profile) {
+                    const {name = undefined} = {...result.additionalUserInfo.profile}
+                    const user = firebaseClient.auth().currentUser;
+                    if(name){
+                        if (user && !user.displayName) {
+                            user.updateProfile({
+                                displayName: name,
+                            })
+                            .then(
+                                () => console.log("success"),
+                            )
+                            .catch(error => console.error(error));
+                        }
+                    }
+
+                }
+            })
+            .catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                // ...
+                console.error(error);
+            });
+    };
 
     public signOut = () => {
-        firebase
+        firebaseClient
             .auth()
             .signOut()
             .catch(function(error) {

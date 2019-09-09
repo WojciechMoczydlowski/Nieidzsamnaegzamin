@@ -22,8 +22,15 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setLoginSection 
     const [serverError, setServerError] = useState<string | undefined>(undefined);
 
     const handleSignIn = () => {
-        console.error("signIn");
         loginManager.trySignInWithEmailAndPassword(email, password, setDirtyLoader, setServerError);
+    };
+
+    const handleLoginWithGoogle = () => {
+        loginManager.loginWithGoogle();
+    };
+
+    const handleLoginWithFacebook = () => {
+        loginManager.loginWithFacebook();
     };
 
     const handleShowPassword = () => {
@@ -34,11 +41,11 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setLoginSection 
     return (
         <>
             {dirtyLoader && <SplashScreen />}
-            <FacebookLogin>
+            <FacebookLogin onClick={handleLoginWithFacebook}>
                 <SocialMediaIcon src={facebook} alt="facebook" />
                 <Text>ZALOGUJ PRZEZ FACEBOOK</Text>
             </FacebookLogin>
-            <GoogleLogin>
+            <GoogleLogin onClick={handleLoginWithGoogle}>
                 <SocialMediaIcon src={google} alt="google" />
                 <Text>ZALOGUJ PRZEZ GOOGLE</Text>
             </GoogleLogin>
