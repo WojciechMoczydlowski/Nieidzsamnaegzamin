@@ -146,13 +146,14 @@ class LoginManager {
                         }
                     }
                 }
+                setServerError(undefined);
             })
             .catch(function(error) {
                 if (error.code === "auth/account-exists-with-different-credential") {
                     setServerError("Email w użyciu.Spróbuj zalogowac się innym dostawcą");
                 }
             });
-            setDirtyLoader(false);
+        setDirtyLoader(false);
     };
 
     public loginWithFacebook = (
@@ -187,13 +188,14 @@ class LoginManager {
                         }
                     }
                 }
+                setServerError(undefined);
             })
             .catch(function(error) {
                 if (error.code === "auth/account-exists-with-different-credential") {
                     setServerError("Email w użyciu.Spróbuj zalogowac się innym dostawcą");
                 }
             });
-            setDirtyLoader(false);
+        setDirtyLoader(false);
     };
 
     public signOut = () => {
