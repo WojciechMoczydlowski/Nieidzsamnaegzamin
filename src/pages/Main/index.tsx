@@ -1,5 +1,6 @@
+import MainLayout from "$components/MainLayout";
+import PrayTable from "$components/PrayTable";
 import firebase from "$configuration/firebase";
-import loginManager from "$services/loginManager";
 import styled from "@material-ui/styles/styled";
 import React, { useEffect, useState } from "react";
 const MainPage: React.FunctionComponent = () => {
@@ -8,10 +9,18 @@ const MainPage: React.FunctionComponent = () => {
         const currentUser = firebase.auth().currentUser;
         currentUser && setUser(currentUser);
     }, []);
-    return <Logout onClick={() => loginManager.signOut()}> Wyloguj</Logout>;
+    return (
+        <MainPageWrapper>
+            <MainLayout>
+                <PrayTable />
+            </MainLayout>
+        </MainPageWrapper>
+    );
 };
-const Logout = styled("h3")({
-    cursor: "pointer",
+
+const MainPageWrapper = styled("div")({
+    display: "flex",
+    flexDirection: "column",
 });
 
 export default MainPage;

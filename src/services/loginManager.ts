@@ -1,6 +1,5 @@
 import firebaseClient from "$configuration/firebase.ts";
 import firebase from "firebase";
-import { LoginSection } from "$pages/LandingPage";
 export type ServerLoginError =
     | "auth/invalid-email"
     | "auth/user-disabled"
@@ -117,10 +116,7 @@ class LoginManager {
                 }
             });
     };
-    public loginWithGoogle = (
-        setServerError: (serverError: string | undefined) => void,
-    ) => {
-     
+    public loginWithGoogle = (setServerError: (serverError: string | undefined) => void) => {
         const provider = new firebase.auth.GoogleAuthProvider();
         provider.addScope("profile");
         firebase.auth().useDeviceLanguage();
@@ -147,19 +143,15 @@ class LoginManager {
                     }
                 }
                 setServerError(undefined);
-              
             })
             .catch(function(error) {
                 if (error.code === "auth/account-exists-with-different-credential") {
                     setServerError("Email w użyciu.Spróbuj zalogowac się innym dostawcą");
                 }
-           
             });
     };
 
-    public loginWithFacebook = (
-        setServerError: (serverError: string | undefined) => void,
-    ) => {
+    public loginWithFacebook = (setServerError: (serverError: string | undefined) => void) => {
         const provider = new firebase.auth.FacebookAuthProvider();
         // provider.addScope("name");
         firebase.auth().useDeviceLanguage();

@@ -1,5 +1,4 @@
 import AuthenticationGuard from "$components/AuthenticationGuard";
-import MainLayout from "$components/MainLayout";
 import Main from "$pages/Main";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import React from "react";
@@ -10,11 +9,9 @@ import { theme } from "./theme";
 const App: React.FunctionComponent = () => (
     <BrowserRouter>
         <MuiThemeProvider theme={theme}>
-            <MainLayout>
-                <AuthenticationGuard>
-                    <Main />
-                </AuthenticationGuard>
-            </MainLayout>
+            <AuthenticationGuard>
+                <Main />
+            </AuthenticationGuard>
         </MuiThemeProvider>
     </BrowserRouter>
 );
