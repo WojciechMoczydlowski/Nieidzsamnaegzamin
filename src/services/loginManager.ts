@@ -1,4 +1,4 @@
-import firebaseClient from "$configuration/firebase.ts";
+import firebaseClient, { firestore } from "$configuration/firebase.ts";
 import firebase from "firebase";
 export type ServerLoginError =
     | "auth/invalid-email"
@@ -94,6 +94,13 @@ class LoginManager {
             .auth()
             .createUserWithEmailAndPassword(email, password)
             .then(result => {
+                result.user &&
+                    firestore
+                        .collection("da_studnia_warszawa")
+                        .doc(result.user.uid)
+                        .set({
+                            exams: [],
+                        });
                 setDirtyLoader(false);
                 setServerError(undefined);
                 const user = result.user;
@@ -130,6 +137,13 @@ class LoginManager {
                     result.additionalUserInfo.profile &&
                     result.additionalUserInfo.profile
                 ) {
+                    result.user &&
+                        firestore
+                            .collection("da_studnia_warszawa")
+                            .doc(result.user.uid)
+                            .set({
+                                exams: [],
+                            });
                     const { name = undefined } = { ...result.additionalUserInfo.profile };
                     const user = firebaseClient.auth().currentUser;
                     if (name) {
@@ -165,6 +179,13 @@ class LoginManager {
                     result.additionalUserInfo.profile &&
                     result.additionalUserInfo.profile
                 ) {
+                    result.user &&
+                        firestore
+                            .collection("da_studnia_warszawa")
+                            .doc(result.user.uid)
+                            .set({
+                                exams: [],
+                            });
                     const { name = undefined } = { ...result.additionalUserInfo.profile };
                     const user = firebaseClient.auth().currentUser;
                     if (name) {
