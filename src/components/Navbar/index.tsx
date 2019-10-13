@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Button, Toolbar, Typography } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import React from "react";
 const Navbar: React.FunctionComponent = props => {
@@ -40,14 +40,14 @@ const RightSide = styled("div")({
     justifyContent: "flex-end",
 });
 
-const AddExam = styled(Typography)({
+const AddExam = styled(Button)({
     textAlign: "center",
     color: "white",
     marginRight: "2rem",
     cursor: "pointer",
 });
 
-const MyProfile = styled(Typography)({
+const MyProfile = styled(Button)({
     marginRight: "2rem",
     textAlign: "center",
     color: "white",
