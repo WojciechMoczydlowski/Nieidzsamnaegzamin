@@ -139,7 +139,9 @@ class LoginManager {
                 ) {
                     result.user &&
                         firestore
-                            .collection("da_studnia_warszawa")
+                            .collection("winter_2019/2020")
+                            .doc("da_studnia_warszawa")
+                            .collection("users")
                             .doc(result.user.uid)
                             .set({
                                 exams: [],
