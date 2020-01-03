@@ -3,12 +3,13 @@ import { ErrorLabel, Information, InputWrapper, LoginButton, StyledInput, Text }
 import { SplashScreen } from "$components/SplashScreen";
 import { LoginSection } from "$pages/LandingPage";
 import loginManager from "$services/loginManager";
-import { Button } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import styled from "styled-components";
 import React, { useState } from "react";
 type RecoverAccountProps = {
     setLoginSection: (loginSection: LoginSection) => void;
 };
+
+
 
 const RecoverAccount: React.FunctionComponent<RecoverAccountProps> = ({ setLoginSection }) => {
     const [email, setEmail] = useState<string>("");
@@ -65,45 +66,54 @@ const RecoverAccount: React.FunctionComponent<RecoverAccountProps> = ({ setLogin
     );
 };
 
-export const RegisterButton = styled(Button)({
-    width: "100%",
-    height: "56px",
-    margin: "20px 0",
-    display: "flex",
-    position: "relative",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: "4px",
-    backgroundColor: "#2699FB",
-    "&:hover": {
-        backgroundColor: "#2699FB",
-    },
-});
+export const RegisterButton = styled.button`
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-const LeftArrow = styled("img")({
-    width: "7px",
-    height: "12px",
-    margin: " 0 10px",
-});
+    width: 100%;
+    height: 56px;
+    margin: 20px 0;
 
-export const BackToLogin = styled("div")({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    font: "400 12px/14px Roboto",
-    letterSpacing: "0.4px",
-    color: "#000000",
-    opacity: 0.6,
-    cursor: "pointer",
-    margin: "20px 0",
-});
+    border-radius: 4px;
+    background-color: #2699fb;
 
-export const SuccessInformation = styled(Information)({
-    textAlign: "left",
-    font: "400 12px/14px Roboto",
-    letterSpacing: "0.4px",
-    marginTop: "4px",
-    marginLeft: "16px",
-});
+    &:hover {
+        background-color: #2699fb;
+    }
+`;
+
+
+const LeftArrow = styled.img`
+    width: 8px;
+    height: 12px;
+    margin: 0 10px;
+`;
+
+
+export const BackToLogin = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    margin: 20px 0;
+
+    color: #000000;
+    opacity: 0.6;
+
+    font: 400 12px/14px Roboto;
+    letter-spacing: 0.4px;
+
+    cursor: pointer;
+`;
+
+export const SuccessInformation = styled(Information)`
+    text-align: left;
+    font: 400 12px/14px Roboto;
+    letter-spacing: 0.4px;
+    margin-top: 4px;
+    margin-left: 16px;
+`;
 
 export default RecoverAccount;

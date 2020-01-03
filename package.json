@@ -23,6 +23,7 @@
     "react-firebaseui": "^4.0.0",
     "react-router-dom": "5.0.0",
     "sass-loader": "8.0.0",
+    "styled-components": "4.4.1",
     "typeface-roboto": "0.0.54"
   },
   "devDependencies": {

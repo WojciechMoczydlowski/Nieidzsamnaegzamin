@@ -5,7 +5,7 @@ import { SplashScreen } from "$components/SplashScreen";
 import { LoginSection } from "$pages/LandingPage";
 import loginManager from "$services/loginManager";
 import { Button, CardActionArea } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import styled from "styled-components";
 import React, { useState } from "react";
 export type PasswordType = "text" | "password";
 
@@ -74,104 +74,115 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setLoginSection 
     );
 };
 
-const FacebookLogin = styled(CardActionArea)({
-    width: "100%",
-    height: "56px",
-    margin: "20px 0",
-    display: "flex",
-    position: "relative",
-    justifyContent: "center",
-    alignItems: "center",
-    background: "transparent linear-gradient(90deg, #3C5A99 0%, #8088FF 100%) 0% 0% no-repeat padding-box",
-    borderRadius: "4px",
-});
+const FacebookLogin = styled.button`
+    width: 100%;
+    height: 56px;
+    margin: 20px 0;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    background: transparent linear-gradient(90deg, #3C5A99 0%, #8088FF 100%) 0% 0% no-repeat padding-box;
+    border-radius: 4px;
+    border:none;
+    cursor: pointer;
+`
+  
 
-const GoogleLogin = styled(Button)({
-    width: "100%",
-    height: "56px",
-    margin: "20px 0",
-    display: "flex",
-    position: "relative",
-    justifyContent: "center",
-    alignItems: "center",
-    background: "transparent linear-gradient(90deg, #DB4437 0%, #8088FF 100%) 0% 0% no-repeat padding-box",
-    borderRadius: "4px",
-});
+const GoogleLogin = styled.button`
+    width: 100%;
+    height: 56px;
+    margin: 20px 0;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    background: transparent linear-gradient(90deg, #db4437 0%, #8088ff 100%) 0% 0% no-repeat padding-box;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+`;
+   
 
-export const Information = styled("div")({
-    textAlign: "center",
-    font: "400 12px/14px Roboto",
-    letterSpacing: "0.4px",
-    color: "#000000",
-    opacity: 0.6,
-});
+export const Information = styled.div`
 
-export const ActionInformation = styled("div")({
-    textAlign: "center",
-    font: "400 12px/14px Roboto",
-    letterSpacing: "0.4px",
-    color: "#000000",
-    opacity: 0.6,
-    cursor: "pointer",
-    margin: "20px 0",
-});
+    text-align: center;
+    font: 400 12px/14px Roboto;
+    letter-spacing: 0.4px;
+    color: #000000;
+    opacity: 0.6;
+`
 
-const SocialMediaIcon = styled("img")({
-    marginRight: "16px",
-});
+export const ActionInformation = styled.div`
+    text-align: center;
+    font: 400 12px/14px Roboto;
+    letter-spacing: 0.4px;
+    color: #000000;
+    opacity: 0.6;
+    cursor: pointer;
+    margin: 20px 0;
+`
 
-export const LoginButton = styled(Button)({
-    width: "100%",
-    height: "56px",
-    margin: "20px 0",
-    display: "flex",
-    position: "relative",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: "4px",
-    background: "transparent linear-gradient(90deg, #007BFA 0%, #8088FF 100%) 0% 0% no-repeat padding-box",
-});
+const SocialMediaIcon = styled.img`
+    margin-right: 16px;
+`
 
-export const Text = styled("div")({
-    letterSpacing: 0,
-    color: "#FFFFFF",
-    font: "500 14px/17px Roboto",
-});
+export const LoginButton = styled.button`
+    width: 100%;
+    height: 56px;
+    margin: 20px 0;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    background: transparent linear-gradient(90deg, #007BFA 0%, #8088FF 100%) 0% 0% no-repeat padding-box;
+    border:none;
+    cursor: pointer;
+`
 
-export const InputWrapper = styled("div")({
-    position: "relative",
-    marginTop: "20px",
-});
+export const Text = styled.div`
+    letter-spacing: 0;
+    color: #FFFFFF;
+    font: 500 14px/17px Roboto;
+`
 
-export const StyledInput = styled("input")({
-    border: "1px solid #000000",
-    padding: "16px 18px",
-    width: "100%",
-    opacity: 0.6,
-    color: "#000000",
-    outline: "none",
-    borderRadius: "4px",
-    fontSize: "16px ",
-    "&:focus": {
-        border: "2px solid #2699FB",
-    },
-});
+export const InputWrapper = styled.div`
+ position: relative;
+ margin-top: 20px;
+`   
 
-export const EyeIcon = styled("img")({
-    position: "absolute",
-    top: "50%",
-    right: "12px",
-    transform: "translate(0,-50%)",
-    cursor: "pointer",
-});
+export const StyledInput = styled.input`
+    border: 1px solid #000000;
+    padding: 16px 18px;
+    width: 100%;
+    opacity: 0.6;
+    color: #000000;
+    outline: none;
+    border-radius: 4px;
+    font-size: 16px;
+    &:focus{
+        border:2px solid #2699FB,
+    };
 
-export const ErrorLabel = styled("div")({
-    textAlign: "left",
-    font: "400 12px/14px Roboto",
-    letterSpacing: "0.4px",
-    color: "#DB4437",
-    marginTop: "4px",
-    marginLeft: "16px",
-});
+`
+export const EyeIcon = styled.img`
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translate(0,-50%);
+    cursor: pointer;
+`
+
+
+export const ErrorLabel = styled.div`
+    text-align: left;
+    font: 400 12px/14px Roboto;
+    letter-spacing: 0.4px;
+    color: #DB4437;
+    margin-top: 4px;
+    margin-left: 16px;
+`
+    
 
 export default SignInForm;
