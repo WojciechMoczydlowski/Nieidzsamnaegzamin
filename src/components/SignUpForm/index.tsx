@@ -1,8 +1,7 @@
 import eye from "$assets/eye.svg";
-import { ErrorLabel, EyeIcon, InputWrapper, PasswordType, StyledInput, Text } from "$components/SignInForm";
+
 import { SplashScreen } from "$components/SplashScreen";
 import loginManager from "$services/loginManager";
-import { Button } from "@material-ui/core";
 import  styled  from "styled-components";
 import React, { useState } from "react";
 const SignUpForm: React.FunctionComponent = () => {

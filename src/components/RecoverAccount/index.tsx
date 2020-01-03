@@ -1,15 +1,15 @@
 import leftArrow from "$assets/leftArrow.svg";
-import { ErrorLabel, Information, InputWrapper, LoginButton, StyledInput, Text } from "$components/SignInForm";
 import { SplashScreen } from "$components/SplashScreen";
 import { LoginSection } from "$pages/LandingPage";
 import loginManager from "$services/loginManager";
 import styled from "styled-components";
 import React, { useState } from "react";
+import { InputWrapper, StyledInput, ErrorLabel, LoginButton,Text
+ } from "$components/Form";
+import { Information } from "$components/SignInForm";
 type RecoverAccountProps = {
     setLoginSection: (loginSection: LoginSection) => void;
 };
-
-
 
 const RecoverAccount: React.FunctionComponent<RecoverAccountProps> = ({ setLoginSection }) => {
     const [email, setEmail] = useState<string>("");

@@ -8,10 +8,11 @@ type AddExamDialogProps = {
 
 const AddExamDialog: React.FunctionComponent<AddExamDialogProps> = (props)=> {
     return( <Root open = {props.isOpen}>
-        Root
+            
         </Root >);
 };
 const Root = styled(Dialog)`
     height: 50vh;
+    padding:16px;
  `
 export default AddExamDialog;

@@ -24,7 +24,7 @@ const Navbar: React.FunctionComponent = props => {
 const NavbarWrapper = styled(Toolbar)`
     display: flex;
     flex-direction: row;
-    justify-content: "space-between";
+    justify-content: space-between;
 `
 
 const Logo = styled(Typography)`
