@@ -12,4 +12,4 @@ var firebaseConfig = {
 // Initialize Firebase
 const firebaseClient = firebase.initializeApp(firebaseConfig);
 export default firebaseClient;
-export const firestore = firebaseClient.firestore();
+// export const firestore = firebaseClient.firestore();

@@ -25,7 +25,8 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setLoginSection 
         loginManager.trySignInWithEmailAndPassword(email, password, setDirtyLoader, setServerError);
     };
 
-    const handleLoginWithGoogle = setServerError => {
+    const handleLoginWithGoogle = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault();
         loginManager.loginWithGoogle(setServerError);
     };
 
@@ -85,7 +86,7 @@ const FacebookLogin = styled(CardActionArea)({
     borderRadius: "4px",
 });
 
-const GoogleLogin = styled(CardActionArea)({
+const GoogleLogin = styled(Button)({
     width: "100%",
     height: "56px",
     margin: "20px 0",
