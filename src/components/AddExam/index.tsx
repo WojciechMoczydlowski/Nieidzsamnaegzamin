@@ -1,6 +1,6 @@
 import React from "react";
-const PrayTable: React.FunctionComponent = props => {
+const AddExam: React.FunctionComponent = props => {
     return <div></div>;
 };
 
-export default PrayTable;
+export default AddExam;
