@@ -3,7 +3,7 @@ import { ErrorLabel, EyeIcon, InputWrapper, PasswordType, StyledInput, Text } fr
 import { SplashScreen } from "$components/SplashScreen";
 import loginManager from "$services/loginManager";
 import { Button } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import  styled  from "styled-components";
 import React, { useState } from "react";
 const SignUpForm: React.FunctionComponent = () => {
     const [name, setName] = useState<string>("");
@@ -142,19 +142,21 @@ const SignUpForm: React.FunctionComponent = () => {
     );
 };
 
-export const RegisterButton = styled(Button)({
-    width: "100%",
-    height: "56px",
-    margin: "20px 0",
-    display: "flex",
-    position: "relative",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: "4px",
-    backgroundColor: "#2699FB",
-    "&:hover": {
-        backgroundColor: "#2699FB",
-    },
-});
+export const RegisterButton = styled.button`
+    width: 100%;
+    height: 56px;
+    margin: 20px 0;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    background-color: #2699FB;
+    &:hover{
+        background-color: #2699FB,
+    };
+`
+
+
 
 export default SignUpForm;
