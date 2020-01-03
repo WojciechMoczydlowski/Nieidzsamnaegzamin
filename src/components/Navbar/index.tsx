@@ -1,7 +1,10 @@
 import { AppBar, Button, Toolbar, Typography } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
-import React from "react";
+import React, { useState } from "react";
+import AddExamDialog from "$components/AddExamDialog";
 const Navbar: React.FunctionComponent = props => {
+
+    const [isOpenAddExamDialog, setIsOpenAddExamDialog] = useState(false);
     return (
         <AppBar position="static" color="primary">
             <NavbarWrapper>
@@ -9,7 +12,10 @@ const Navbar: React.FunctionComponent = props => {
                     <Logo variant="h5">Nie idź sam na egzamin</Logo>
                 </LeftSide>
                 <RightSide>
-                    <AddExam>Dodaj egzamin</AddExam>
+                    <AddExam onClick = {() => setIsOpenAddExamDialog(true)}>Dodaj egzamin</AddExam>
+                    {
+                        isOpenAddExamDialog && <AddExamDialog isOpen ={isOpenAddExamDialog} close = {() => setIsOpenAddExamDialog(false)}/>
+                    }
                     <MyProfile>Profil</MyProfile>
                 </RightSide>
             </NavbarWrapper>
