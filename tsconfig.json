@@ -22,7 +22,8 @@
       "$domain/*": ["domain/*"],
       "$pages/*": ["pages/*"],
       "$services/*": ["services/*"],
-      "$utils/*": ["utils/*"]
+      "$utils/*": ["utils/*"],
+      "$styles/*": ["styles/*"]
     }
   }
 }

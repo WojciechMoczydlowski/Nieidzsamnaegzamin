@@ -1,7 +1,6 @@
-
 import styled from "styled-components";
 
-export const LoginButton = styled.button`
+export const GradientButton = styled.button`
     width: 100%;
     height: 56px;
     margin: 20px 0;

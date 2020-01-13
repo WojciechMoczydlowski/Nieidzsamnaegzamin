@@ -1,6 +1,6 @@
 import { CircularProgress } from "@material-ui/core";
-import  styled  from "styled-components";
 import React from "react";
+import styled from "styled-components";
 export const SplashScreen: React.FunctionComponent = () => {
     return (
         <Background>
@@ -20,16 +20,15 @@ const Background = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    
+
     z-index: 1000;
 
     background: rgba(200, 200, 200, 0.3);
-`
-    
+`;
 
 const LoaderContainer = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
-`
+`;

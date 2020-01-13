@@ -13,9 +13,11 @@
     "prettier": "prettier --write --end-of-line lf  src/**/*.ts{,x}"
   },
   "dependencies": {
+    "@date-io/date-fns": "1.0.1",
     "@firebase/auth-types": "0.9.3",
     "@material-ui/core": "4.3.2",
     "@material-ui/icons": "4.2.1",
+    "date-fns": "2.0.0-beta.5",
     "firebase": "7.6.1",
     "node-sass": "4.13.0",
     "react": "16.8.6",
@@ -34,6 +36,7 @@
     "@babel/preset-react": "7.0.0",
     "@babel/preset-typescript": "7.3.3",
     "@leancode/linting": "1.0.3",
+    "@material-ui/pickers": "3.2.8",
     "@types/react": "16.8.20",
     "@types/react-dom": "16.8.4",
     "@types/uuid": "3.4.4",

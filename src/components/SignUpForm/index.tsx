@@ -1,9 +1,11 @@
 import eye from "$assets/eye.svg";
-
+import { ErrorLabel, EyeIcon, InputWrapper, StyledInput, Text } from "$components/Form";
+import { PasswordType } from "$components/SignInForm";
 import { SplashScreen } from "$components/SplashScreen";
 import loginManager from "$services/loginManager";
-import  styled  from "styled-components";
 import React, { useState } from "react";
+import styled from "styled-components";
+
 const SignUpForm: React.FunctionComponent = () => {
     const [name, setName] = useState<string>("");
     const [lastName, setLastName] = useState<string>("");
@@ -146,16 +148,16 @@ export const RegisterButton = styled.button`
     height: 56px;
     margin: 20px 0;
     display: flex;
-    position: relative;
     justify-content: center;
+    position: relative;
     align-items: center;
     border-radius: 4px;
-    background-color: #2699FB;
-    &:hover{
-        background-color: #2699FB,
-    };
-`
-
-
+    background-color: #2699fb;
+    border: none;
+    cursor: pointer;
+    &:hover {
+        background-color: #2699fb;
+    }
+`;
 
 export default SignUpForm;

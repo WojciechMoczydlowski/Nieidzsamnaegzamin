@@ -1,12 +1,14 @@
 import firebase from "$configuration/firebase";
 import LandingPage from "$pages/LandingPage";
-import React, { useState } from "react";
+import React, { createContext, useState } from "react";
+
+export const UserContext = createContext<User>({ displayName: "", uid: "" });
 const AuthenticationGuard: React.FunctionComponent = props => {
-    const [currentUser, setcurrentUser] = useState<firebase.User | null>(null);
-    firebase.auth().onAuthStateChanged(user => setcurrentUser(user));
+    const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
+    firebase.auth().onAuthStateChanged(user => setCurrentUser(user));
 
     if (!currentUser) return <LandingPage />;
-    return <>{props.children}</>;
+    return <UserContext.Provider value={currentUser}>{props.children}</UserContext.Provider>;
 };
 
 export default AuthenticationGuard;

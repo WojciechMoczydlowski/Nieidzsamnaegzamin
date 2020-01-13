@@ -1,13 +1,12 @@
 import eye from "$assets/eye.svg";
 import facebook from "$assets/facebook.svg";
 import google from "$assets/google.svg";
+import { ErrorLabel, EyeIcon, GradientButton, InputWrapper, StyledInput, Text } from "$components/Form";
 import { SplashScreen } from "$components/SplashScreen";
 import { LoginSection } from "$pages/LandingPage";
 import loginManager from "$services/loginManager";
-import { Button, CardActionArea } from "@material-ui/core";
-import styled from "styled-components";
 import React, { useState } from "react";
-import { InputWrapper, StyledInput, EyeIcon, ErrorLabel, LoginButton, Text } from "$components/Form";
+import styled from "styled-components";
 export type PasswordType = "text" | "password";
 
 type SignInFormProps = {
@@ -65,9 +64,9 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setLoginSection 
                 <EyeIcon src={eye} alt="eye" onClick={handleShowPassword} />
             </InputWrapper>
             {serverError && <ErrorLabel>{serverError}</ErrorLabel>}
-            <LoginButton onClick={() => handleSignIn()}>
+            <GradientButton onClick={() => handleSignIn()}>
                 <Text>ZALOGUJ</Text>
-            </LoginButton>
+            </GradientButton>
             <ActionInformation onClick={() => setLoginSection("recover_account")}>
                 Nie pamiętasz hasła?
             </ActionInformation>
@@ -83,12 +82,11 @@ const FacebookLogin = styled.button`
     position: relative;
     justify-content: center;
     align-items: center;
-    background: transparent linear-gradient(90deg, #3C5A99 0%, #8088FF 100%) 0% 0% no-repeat padding-box;
+    background: transparent linear-gradient(90deg, #3c5a99 0%, #8088ff 100%) 0% 0% no-repeat padding-box;
     border-radius: 4px;
-    border:none;
+    border: none;
     cursor: pointer;
-`
-  
+`;
 
 const GoogleLogin = styled.button`
     width: 100%;
@@ -103,16 +101,14 @@ const GoogleLogin = styled.button`
     border: none;
     cursor: pointer;
 `;
-   
 
 export const Information = styled.div`
-
     text-align: center;
     font: 400 12px/14px Roboto;
     letter-spacing: 0.4px;
     color: #000000;
     opacity: 0.6;
-`
+`;
 
 export const ActionInformation = styled.div`
     text-align: center;
@@ -122,12 +118,10 @@ export const ActionInformation = styled.div`
     opacity: 0.6;
     cursor: pointer;
     margin: 20px 0;
-`
+`;
 
 const SocialMediaIcon = styled.img`
     margin-right: 16px;
-`
-
-
+`;
 
 export default SignInForm;

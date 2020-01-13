@@ -1,12 +1,11 @@
 import leftArrow from "$assets/leftArrow.svg";
+import { ErrorLabel, GradientButton, InputWrapper, StyledInput, Text } from "$components/Form";
+import { Information } from "$components/SignInForm";
 import { SplashScreen } from "$components/SplashScreen";
 import { LoginSection } from "$pages/LandingPage";
 import loginManager from "$services/loginManager";
-import styled from "styled-components";
 import React, { useState } from "react";
-import { InputWrapper, StyledInput, ErrorLabel, LoginButton,Text
- } from "$components/Form";
-import { Information } from "$components/SignInForm";
+import styled from "styled-components";
 type RecoverAccountProps = {
     setLoginSection: (loginSection: LoginSection) => void;
 };
@@ -55,9 +54,9 @@ const RecoverAccount: React.FunctionComponent<RecoverAccountProps> = ({ setLogin
             {emailError && <ErrorLabel>{emailError}</ErrorLabel>}
             {serverError && <ErrorLabel>{serverError}</ErrorLabel>}
             {information && <SuccessInformation>{information}</SuccessInformation>}
-            <LoginButton onClick={handleResetPassword}>
+            <GradientButton onClick={handleResetPassword}>
                 <Text>ODZYSKAJ DOSTĘP</Text>
-            </LoginButton>
+            </GradientButton>
             <BackToLogin onClick={() => setLoginSection("signing_in")}>
                 <LeftArrow src={leftArrow} alt="leftArrow" />
                 <div>Powrót do logowania</div>
@@ -84,13 +83,11 @@ export const RegisterButton = styled.button`
     }
 `;
 
-
 const LeftArrow = styled.img`
     width: 8px;
     height: 12px;
     margin: 0 10px;
 `;
-
 
 export const BackToLogin = styled.div`
     display: flex;
