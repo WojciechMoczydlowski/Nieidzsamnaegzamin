@@ -67,12 +67,22 @@ const AddExamDialog: React.FunctionComponent<AddExamDialogProps> = ({ close, isO
 };
 const Root = styled(Dialog)`
     padding: 16px;
+    @media only screen and (max-width: 960px) {
+        > div {
+            > div {
+                margin: 0;
+            }
+        }
+    }
 `;
 
 const StyledCard = styled.div`
     position: relative;
     padding: 6px 42px;
     width: ${px2rem(450)};
+    @media only screen and (max-width: 960px) {
+        width: 100%;
+    }
 `;
 
 const Cross = styled.img`

@@ -6,7 +6,7 @@ const Navbar: React.FunctionComponent = props => {
         <AppBar position="static" color="primary">
             <NavbarWrapper>
                 <LeftSide>
-                    <Logo variant="h5">Nie idź sam na egzamin</Logo>
+                    <Logo>Nie idź sam na egzamin</Logo>
                 </LeftSide>
                 <RightSide>
                     <MyProfile>
@@ -24,15 +24,17 @@ const NavbarWrapper = styled(Toolbar)`
     justify-content: space-between;
 `;
 
-const Logo = styled(Typography)`
+const Logo = styled.h3`
     display: flex;
     text-align: left;
     color: white;
+    @media only screen and (max-width: 960px) {
+        font-size: 14px;
+        line-height: 17px;
+    }
 `;
 
-const LeftSide = styled.div`
-    width: 30%;
-`;
+const LeftSide = styled.div``;
 
 const RightSide = styled.div`
     width: 50%;

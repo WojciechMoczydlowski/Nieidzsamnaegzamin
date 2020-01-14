@@ -1,4 +1,5 @@
 import Container from "$components/Container";
+import ExamTag from "$components/ExamTag";
 import PrayTile from "$components/PrayTile";
 import firebaseClient from "$configuration/firebase.ts";
 import React, { useEffect, useState } from "react";
@@ -20,7 +21,16 @@ const PrayTable: React.FunctionComponent = props => {
         };
     }, []);
 
-    return <Container>{exams && exams.map(item => <PrayTile exam={item} />)} </Container>;
+    return (
+        <Container>
+            <ExamTag title={"Wpierasz"} />
+            {exams && exams.map(item => <PrayTile exam={item} />)}
+            <ExamTag title={"Twoje egzaminy"} />
+            {exams && exams.map(item => <PrayTile exam={item} />)}
+            <ExamTag title={"Pozostałe"} />
+            {exams && exams.map(item => <PrayTile exam={item} />)}
+        </Container>
+    );
 };
 
 export default PrayTable;
