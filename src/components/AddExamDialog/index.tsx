@@ -19,12 +19,11 @@ const AddExamDialog: React.FunctionComponent<AddExamDialogProps> = ({ close, isO
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [examDate, setExamDate] = useState<Date>(new Date());
     const currentUser = useContext(UserContext);
-    currentUser && console.error(currentUser);
     const addExam = () => {
         currentUser.uid &&
             currentUser.displayName &&
             firestoreManager.addExam({
-                date: examDate,
+                date: examDate.toString(),
                 name: examName,
                 ownerId: currentUser.uid,
                 ownerName: currentUser.displayName,
@@ -51,7 +50,7 @@ const AddExamDialog: React.FunctionComponent<AddExamDialogProps> = ({ close, isO
                             format="dd/MM/yyyy"
                             variant="inline"
                             value={examDate}
-                            onChange={() => setShowDatePicker(false)}
+                            onChange={setExamDate}
                             disablePast
                             onClose={() => setShowDatePicker(false)}
                             autoOk

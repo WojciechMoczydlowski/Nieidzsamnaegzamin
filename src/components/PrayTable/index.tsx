@@ -1,12 +1,26 @@
-import loginManager from "$services/loginManager";
-import React from "react";
+import Container from "$components/Container";
+import PrayTile from "$components/PrayTile";
+import firebaseClient from "$configuration/firebase.ts";
+import React, { useEffect, useState } from "react";
+
 const PrayTable: React.FunctionComponent = props => {
-    // db.collection("cities")
-    //     .doc("SF")
-    //     .onSnapshot(function(doc) {
-    //         console.log("Current data: ", doc.data());
-    //     });
-    return <div onClick={() => loginManager.signOut()}>Wyloguj</div>;
+    const [exams, setExams] = useState();
+    useEffect(() => {
+        const db = firebaseClient
+            .firestore()
+            .collection("winter2020")
+            .doc("daStudniaWarszawa")
+            .collection("exams")
+            .onSnapshot(function(doc) {
+                const item = doc.docs.map(item => item.data());
+                setExams(item);
+            });
+        return () => {
+            db();
+        };
+    }, []);
+
+    return <Container>{exams && exams.map(item => <PrayTile exam={item} />)} </Container>;
 };
 
 export default PrayTable;

@@ -4,7 +4,7 @@ import Navbar from "$components/Navbar";
 import React, { useState } from "react";
 
 const MainLayout: React.FunctionComponent = props => {
-    const [isOpenAddExamDialog, setIsOpenAddExamDialog] = useState(true);
+    const [isOpenAddExamDialog, setIsOpenAddExamDialog] = useState(false);
     return (
         <>
             <Navbar />

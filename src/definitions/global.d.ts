@@ -1,7 +1,7 @@
 type Exam = {
     ownerId: string;
     ownerName: string;
-    date: Date;
+    date: string;
     name: string;
     supporters?: string[];
 };

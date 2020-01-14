@@ -17,5 +17,4 @@ class FirestoreManager {
             .catch(error => console.error(error));
     };
 }
-
 export default new FirestoreManager();
