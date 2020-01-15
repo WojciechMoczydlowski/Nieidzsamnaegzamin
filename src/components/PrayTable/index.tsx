@@ -1,11 +1,13 @@
+import { UserContext } from "$components/AuthenticationGuard";
 import Container from "$components/Container";
 import ExamTag from "$components/ExamTag";
 import PrayTile from "$components/PrayTile";
 import firebaseClient from "$configuration/firebase.ts";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const PrayTable: React.FunctionComponent = props => {
     const [exams, setExams] = useState();
+    const currentUser = useContext(UserContext);
     useEffect(() => {
         const db = firebaseClient
             .firestore()
@@ -21,14 +23,25 @@ const PrayTable: React.FunctionComponent = props => {
         };
     }, []);
 
+    const yourExams = exams && exams.filter(exam => exam.ownerName === currentUser.displayName);
+
+    const youSupport = exams && exams.filter(exam => exam.support && exam.support.includes(currentUser.displayName));
+    const others = exams && exams.filter(el => !yourExams.includes(el)).filter(el => !youSupport.includes(el));
+
     return (
         <Container>
-            <ExamTag title={"Wpierasz"} />
-            {exams && exams.map(item => <PrayTile exam={item} />)}
+            {youSupport && (
+                <>
+                    <ExamTag title={"Wpierasz"} />
+                    {youSupport.map((item, i) => (
+                        <PrayTile exam={item} key={i} />
+                    ))}
+                </>
+            )}
             <ExamTag title={"Twoje egzaminy"} />
-            {exams && exams.map(item => <PrayTile exam={item} />)}
+            {yourExams && yourExams.map((item, i) => <PrayTile exam={item} key={i} />)}
             <ExamTag title={"Pozostałe"} />
-            {exams && exams.map(item => <PrayTile exam={item} />)}
+            {others && others.map((item, i) => <PrayTile exam={item} key={i} />)}
         </Container>
     );
 };

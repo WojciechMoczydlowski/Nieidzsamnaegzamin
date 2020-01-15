@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const GradientButton = styled.button`
+export const DefaultButton = styled.button`
     width: 100%;
     height: 56px;
     margin: 20px 0;
@@ -9,9 +9,12 @@ export const GradientButton = styled.button`
     justify-content: center;
     align-items: center;
     border-radius: 4px;
-    background: transparent linear-gradient(90deg, #007bfa 0%, #8088ff 100%) 0% 0% no-repeat padding-box;
+    background-color: #fb8d3e;
     border: none;
     cursor: pointer;
+    :hover {
+        background-color: #ea7c2b;
+    }
 `;
 
 export const Text = styled.div`
@@ -35,7 +38,7 @@ export const StyledInput = styled.input`
     border-radius: 4px;
     font-size: 16px;
     &:focus {
-        border: 2px solid #2699fb;
+        border: 2px solid #fb8d3e;
     }
 `;
 export const EyeIcon = styled.img`

@@ -1,3 +1,4 @@
+import loginManager from "$services/loginManager";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import React from "react";
 import styled from "styled-components";
@@ -10,7 +11,7 @@ const Navbar: React.FunctionComponent = props => {
                 </LeftSide>
                 <RightSide>
                     <MyProfile>
-                        <Typography>Profil</Typography>
+                        <Typography onClick={() => loginManager.signOut()}>Wyloguj</Typography>
                     </MyProfile>
                 </RightSide>
             </NavbarWrapper>

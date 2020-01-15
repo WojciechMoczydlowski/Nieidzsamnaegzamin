@@ -19,8 +19,8 @@ const AddExamButton: React.FunctionComponent<AddExamButtonProps> = ({ open }) =>
 
 const Root = styled.div`
     position: fixed;
-    bottom: ${px2rem(32)};
-    right: ${px2rem(32)};
+    bottom: ${px2rem(16)};
+    right: ${px2rem(16)};
 `;
 
 export default AddExamButton;

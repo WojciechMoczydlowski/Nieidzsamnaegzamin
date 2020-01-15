@@ -1,7 +1,5 @@
 import eye from "$assets/eye.svg";
-import facebook from "$assets/facebook.svg";
-import google from "$assets/google.svg";
-import { ErrorLabel, EyeIcon, GradientButton, InputWrapper, StyledInput, Text } from "$components/Form";
+import { DefaultButton, ErrorLabel, EyeIcon, InputWrapper, StyledInput, Text } from "$components/Form";
 import { SplashScreen } from "$components/SplashScreen";
 import { LoginSection } from "$pages/LandingPage";
 import loginManager from "$services/loginManager";
@@ -42,15 +40,15 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setLoginSection 
     return (
         <>
             {dirtyLoader && <SplashScreen />}
-            <FacebookLogin onClick={handleLoginWithFacebook}>
+            {/* <FacebookLogin onClick={handleLoginWithFacebook}>
                 <SocialMediaIcon src={facebook} alt="facebook" />
                 <Text>ZALOGUJ PRZEZ FACEBOOK</Text>
             </FacebookLogin>
             <GoogleLogin onClick={handleLoginWithGoogle}>
                 <SocialMediaIcon src={google} alt="google" />
                 <Text>ZALOGUJ PRZEZ GOOGLE</Text>
-            </GoogleLogin>
-            <Information>lub zaloguj przez email:</Information>
+            </GoogleLogin> */}
+            {/* <Information>lub zaloguj przez email:</Information> */}
             <InputWrapper>
                 <StyledInput value={email} onChange={e => setEmail(e.target.value)} placeholder={"Email"} />
             </InputWrapper>
@@ -64,9 +62,9 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = ({ setLoginSection 
                 <EyeIcon src={eye} alt="eye" onClick={handleShowPassword} />
             </InputWrapper>
             {serverError && <ErrorLabel>{serverError}</ErrorLabel>}
-            <GradientButton onClick={() => handleSignIn()}>
+            <DefaultButton onClick={() => handleSignIn()}>
                 <Text>ZALOGUJ</Text>
-            </GradientButton>
+            </DefaultButton>
             <ActionInformation onClick={() => setLoginSection("recover_account")}>
                 Nie pamiętasz hasła?
             </ActionInformation>

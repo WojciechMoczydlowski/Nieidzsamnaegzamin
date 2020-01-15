@@ -9,6 +9,7 @@ import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import plLocale from "date-fns/locale/pl";
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
+import uuid from "uuid";
 type AddExamDialogProps = {
     isOpen: boolean;
     close: () => void;
@@ -23,6 +24,7 @@ const AddExamDialog: React.FunctionComponent<AddExamDialogProps> = ({ close, isO
         currentUser.uid &&
             currentUser.displayName &&
             firestoreManager.addExam({
+                id: uuid(),
                 date: examDate.toString(),
                 name: examName,
                 ownerId: currentUser.uid,

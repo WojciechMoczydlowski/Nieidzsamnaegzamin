@@ -1,14 +1,25 @@
+import { UserContext } from "$components/AuthenticationGuard";
+import firestoreManager from "$services/firestoreManager";
 import { resetButton } from "$styles/reset";
 import { formatDateToddMMMMyyyy } from "$utils/date";
 import { px2rem } from "$utils/styles";
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 type PrayTileProps = {
     exam: Exam;
 };
 
 const PrayTile: React.FunctionComponent<PrayTileProps> = ({ exam }) => {
-    console.log(exam);
+    const currentUser = useContext(UserContext);
+    const displaySupportButton =
+        (!exam.support || exam.support.length < 3) &&
+        !(
+            (currentUser.displayName && exam.support && exam.support.includes(currentUser.displayName)) ||
+            currentUser.displayName === exam.ownerName
+        );
+    const displayResignButton =
+        currentUser.displayName && exam.support && exam.support.includes(currentUser.displayName);
+    const deleteButton = currentUser.displayName === exam.ownerName;
     return (
         <Root>
             <LeftSide>
@@ -17,20 +28,46 @@ const PrayTile: React.FunctionComponent<PrayTileProps> = ({ exam }) => {
                 <DarkItem>{formatDateToddMMMMyyyy(exam.date)}</DarkItem>
             </LeftSide>
             <RightSide>
-                <Support>
-                    <LightItem>{exam.ownerName}</LightItem>
-                    <LightItem>{exam.ownerName}</LightItem>
-                    <LightItem>{exam.ownerName}</LightItem>
-                </Support>
-                <div>
-                    <ActionButton variant="contained" color="primary">
-                        Wesprzyj
-                    </ActionButton>
-                </div>
+                <Support>{exam.support && exam.support.map((item, i) => <LightItem>{item}</LightItem>)}</Support>
+                {displaySupportButton && (
+                    <div>
+                        <ActionButton
+                            variant={"primary"}
+                            onClick={() =>
+                                currentUser.displayName &&
+                                firestoreManager.signForExam(exam.id, currentUser.displayName)
+                            }>
+                            Wesprzyj
+                        </ActionButton>
+                    </div>
+                )}
+                {displayResignButton && (
+                    <div>
+                        <ActionButton
+                            variant={"resign"}
+                            onClick={() =>
+                                currentUser.displayName &&
+                                firestoreManager.resignFromExam(exam.id, currentUser.displayName)
+                            }>
+                            Zrezygnuj
+                        </ActionButton>
+                    </div>
+                )}
+                {deleteButton && (
+                    <div>
+                        <ActionButton
+                            variant={"resign"}
+                            onClick={() => currentUser.displayName && firestoreManager.deleteExam(exam.id)}>
+                            Usuń
+                        </ActionButton>
+                    </div>
+                )}
             </RightSide>
         </Root>
     );
 };
+
+type ButtonVariant = "primary" | "resign";
 
 const Root = styled.div`
     display: flex;
@@ -69,6 +106,7 @@ const LightItem = styled(Item)`
     align-items: center;
     font-size: 18px;
     line-height: 22px;
+    margin-right: ${px2rem(16)};
     @media only screen and (max-width: 960px) {
         font-size: 12px;
         line-height: 15px;
@@ -108,20 +146,25 @@ const Support = styled.div`
     width: 100%;
 `;
 
-const ActionButton = styled.button`
+const ActionButton = styled.button<{ variant: ButtonVariant }>`
     ${resetButton}
     border-radius: 6px;
-    background-color: #fb8d3e;
-    color: white;
+
+    background-color: ${p => (p.variant === "primary" ? "#fb8d3e" : "white")};
+    color: ${p => (p.variant === "primary" ? "white" : "rgba(38, 45, 50, 0.6)")};
+    border: ${p => (p.variant === "primary" ? "none" : " 1px solid rgba(38, 45, 50, 0.6)")};
+
     padding: ${px2rem(12)} ${px2rem(32)};
     font-weight: bold;
     cursor: pointer;
 
     :hover {
-        background-color: #ea7c2d;
+        background-color: ${p => (p.variant === "primary" ? "#ea7c2b" : "#fc828b")};
+        color: white;
     }
     :active {
-        background-color: #ea7c2d;
+        background-color: ${p => (p.variant === "primary" ? "#ea7c2b" : "#fc828b")};
+        color: white;
     }
     @media only screen and (max-width: 960px) {
         font-size: 10px;

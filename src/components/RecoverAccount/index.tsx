@@ -1,5 +1,5 @@
 import leftArrow from "$assets/leftArrow.svg";
-import { ErrorLabel, GradientButton, InputWrapper, StyledInput, Text } from "$components/Form";
+import { DefaultButton, ErrorLabel, InputWrapper, StyledInput, Text } from "$components/Form";
 import { Information } from "$components/SignInForm";
 import { SplashScreen } from "$components/SplashScreen";
 import { LoginSection } from "$pages/LandingPage";
@@ -54,9 +54,9 @@ const RecoverAccount: React.FunctionComponent<RecoverAccountProps> = ({ setLogin
             {emailError && <ErrorLabel>{emailError}</ErrorLabel>}
             {serverError && <ErrorLabel>{serverError}</ErrorLabel>}
             {information && <SuccessInformation>{information}</SuccessInformation>}
-            <GradientButton onClick={handleResetPassword}>
+            <DefaultButton onClick={handleResetPassword}>
                 <Text>ODZYSKAJ DOSTĘP</Text>
-            </GradientButton>
+            </DefaultButton>
             <BackToLogin onClick={() => setLoginSection("signing_in")}>
                 <LeftArrow src={leftArrow} alt="leftArrow" />
                 <div>Powrót do logowania</div>

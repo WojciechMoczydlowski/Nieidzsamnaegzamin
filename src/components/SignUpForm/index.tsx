@@ -1,5 +1,5 @@
 import eye from "$assets/eye.svg";
-import { ErrorLabel, EyeIcon, InputWrapper, StyledInput, Text } from "$components/Form";
+import { DefaultButton, ErrorLabel, EyeIcon, InputWrapper, StyledInput, Text } from "$components/Form";
 import { PasswordType } from "$components/SignInForm";
 import { SplashScreen } from "$components/SplashScreen";
 import loginManager from "$services/loginManager";
@@ -136,9 +136,9 @@ const SignUpForm: React.FunctionComponent = () => {
                 {passwordError && <ErrorLabel>{passwordError}</ErrorLabel>}
             </InputWrapper>
             {serverError && <ErrorLabel>{serverError}</ErrorLabel>}
-            <RegisterButton onClick={() => handleSignUp()}>
+            <DefaultButton onClick={() => handleSignUp()}>
                 <Text>ZAREJESTRUJ</Text>
-            </RegisterButton>
+            </DefaultButton>
         </>
     );
 };
