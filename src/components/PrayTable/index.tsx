@@ -32,7 +32,7 @@ const PrayTable: React.FunctionComponent = props => {
         <Container>
             {youSupport && (
                 <>
-                    <ExamTag title={"Wpierasz"} />
+                    <ExamTag title={"Wspierasz"} />
                     {youSupport.map((item, i) => (
                         <PrayTile exam={item} key={i} />
                     ))}

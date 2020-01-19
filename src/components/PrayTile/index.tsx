@@ -28,7 +28,9 @@ const PrayTile: React.FunctionComponent<PrayTileProps> = ({ exam }) => {
                 <DarkItem>{formatDateToddMMMMyyyy(exam.date)}</DarkItem>
             </LeftSide>
             <RightSide>
-                <Support>{exam.support && exam.support.map((item, i) => <LightItem>{item}</LightItem>)}</Support>
+                <Support>
+                    {exam.support && exam.support.map((item, i) => <LightItem key={i}>{item}</LightItem>)}
+                </Support>
                 {displaySupportButton && (
                     <div>
                         <ActionButton
@@ -84,10 +86,6 @@ const Root = styled.div`
 const Item = styled.div`
     font-size: 18px;
     line-height: 22px;
-    @media only screen and (max-width: 960px) {
-        font-size: 14px;
-        line-height: 17px;
-    }
 `;
 
 const DarkItem = styled(Item)`
@@ -95,10 +93,6 @@ const DarkItem = styled(Item)`
     align-items: center;
     font-size: 18px;
     line-height: 22px;
-    @media only screen and (max-width: 960px) {
-        font-size: 14px;
-        line-height: 17px;
-    }
 `;
 
 const LightItem = styled(Item)`
@@ -107,10 +101,6 @@ const LightItem = styled(Item)`
     font-size: 18px;
     line-height: 22px;
     margin-right: ${px2rem(16)};
-    @media only screen and (max-width: 960px) {
-        font-size: 12px;
-        line-height: 15px;
-    }
 
     color: rgba(38, 45, 50, 0.6);
 `;
@@ -166,10 +156,10 @@ const ActionButton = styled.button<{ variant: ButtonVariant }>`
         background-color: ${p => (p.variant === "primary" ? "#ea7c2b" : "#fc828b")};
         color: white;
     }
-    @media only screen and (max-width: 960px) {
+    /* @media only screen and (max-width: 960px) {
         font-size: 10px;
         line-height: 12px;
-    }
+    } */
 `;
 
 export default PrayTile;

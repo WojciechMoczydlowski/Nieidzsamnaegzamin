@@ -1,12 +1,13 @@
 import cross from "$assets/cross.svg";
 import { UserContext } from "$components/AuthenticationGuard";
-import { GradientButton } from "$components/Form";
+import { DefaultButton, StyledInput } from "$components/Form";
 import firestoreManager from "$services/firestoreManager";
 import { px2rem } from "$utils/styles";
-import DateFnsUtils from "@date-io/date-fns";
+import MomentUtils from "@date-io/moment";
 import Dialog from "@material-ui/core/Dialog";
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import plLocale from "date-fns/locale/pl";
+import { DatePicker, MaterialUiPickersDate, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import moment from "moment";
+import "moment/locale/pl";
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import uuid from "uuid";
@@ -18,14 +19,20 @@ type AddExamDialogProps = {
 const AddExamDialog: React.FunctionComponent<AddExamDialogProps> = ({ close, isOpen }) => {
     const [examName, setExamName] = useState<string>("");
     const [showDatePicker, setShowDatePicker] = useState(false);
-    const [examDate, setExamDate] = useState<Date>(new Date());
+    const [examDate, setExamDate] = useState(new Date());
     const currentUser = useContext(UserContext);
+    const updateDate = (date: Date | null) => {
+        date && setExamDate(date);
+    };
+    const setDate = (date: MaterialUiPickersDate) => {
+        date && setExamDate(date.toDate());
+    };
     const addExam = () => {
         currentUser.uid &&
             currentUser.displayName &&
             firestoreManager.addExam({
                 id: uuid(),
-                date: examDate.toString(),
+                date: examDate ? examDate.toString() : "",
                 name: examName,
                 ownerId: currentUser.uid,
                 ownerName: currentUser.displayName,
@@ -43,16 +50,16 @@ const AddExamDialog: React.FunctionComponent<AddExamDialogProps> = ({ close, isO
                 </Content>
 
                 <Content>
-                    <Input value={examName} onChange={e => setExamName(e.target.value)} placeholder={"Egzamin"} />
+                    <StyledInput value={examName} onChange={e => setExamName(e.target.value)} placeholder={"Egzamin"} />
                 </Content>
 
                 <Content>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={plLocale}>
+                    <MuiPickersUtilsProvider utils={MomentUtils} locale={moment.locale("pl")}>
                         <DatePicker
-                            format="dd/MM/yyyy"
+                            format="DD MMMM YYYY"
                             variant="inline"
                             value={examDate}
-                            onChange={setExamDate}
+                            onChange={setDate}
                             disablePast
                             onClose={() => setShowDatePicker(false)}
                             autoOk
@@ -60,15 +67,16 @@ const AddExamDialog: React.FunctionComponent<AddExamDialogProps> = ({ close, isO
                         />
                     </MuiPickersUtilsProvider>
                 </Content>
-                <GradientButton onClick={addExam}>
+                <DefaultButton onClick={addExam}>
                     <Text> Dodaj</Text>
-                </GradientButton>
+                </DefaultButton>
             </StyledCard>
         </Root>
     );
 };
 const Root = styled(Dialog)`
     padding: 16px;
+    top: 0;
     @media only screen and (max-width: 960px) {
         > div {
             > div {
@@ -84,6 +92,7 @@ const StyledCard = styled.div`
     width: ${px2rem(450)};
     @media only screen and (max-width: 960px) {
         width: 100%;
+        height: 100%;
     }
 `;
 
@@ -103,20 +112,6 @@ const Text = styled.div`
     letter-spacing: 0;
     color: #ffffff;
     font: 500 18px Roboto;
-`;
-
-const Input = styled.input`
-    border: 1px solid #000000;
-    padding: 16px 18px;
-    width: 100%;
-    opacity: 0.6;
-    color: #000000;
-    outline: none;
-    border-radius: 4px;
-    font-size: 16px;
-    &:focus {
-        border: 2px solid #2699fb;
-    }
 `;
 
 export default AddExamDialog;

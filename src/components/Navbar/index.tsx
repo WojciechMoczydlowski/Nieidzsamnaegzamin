@@ -30,22 +30,21 @@ const Logo = styled.h3`
     text-align: left;
     color: white;
     @media only screen and (max-width: 960px) {
-        font-size: 14px;
-        line-height: 17px;
+        font-size: 18px;
+        line-height: 22px;
     }
 `;
 
 const LeftSide = styled.div``;
 
 const RightSide = styled.div`
-    width: 50%;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
 `;
 
 const MyProfile = styled.div`
-    margin-right: 2rem;
+    margin-right: 1rem;
     text-align: center;
     color: white;
     cursor: pointer;
