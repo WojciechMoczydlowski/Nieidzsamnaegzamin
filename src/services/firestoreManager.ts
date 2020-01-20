@@ -13,7 +13,7 @@ class FirestoreManager {
             .set(exam);
         result
             .then(() => {
-                console.log("success");
+                //console.log("success");
             })
             .catch(error => console.error(error));
     };
@@ -27,7 +27,7 @@ class FirestoreManager {
             .delete();
         result
             .then(() => {
-                console.log("success");
+                // console.log("success");
             })
             .catch(error => console.error(error));
     };

@@ -73,6 +73,8 @@ type ButtonVariant = "primary" | "resign";
 
 const Root = styled.div`
     display: flex;
+    background-color: white;
+    opacity: 0.9;
     justify-content: space-between;
     margin-top: ${px2rem(20)};
     padding: ${px2rem(28)} ${px2rem(40)};

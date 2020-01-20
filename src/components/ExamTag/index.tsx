@@ -10,6 +10,8 @@ const ExamTag: React.FunctionComponent<ExamTagProps> = ({ title }) => {
 };
 const Root = styled.h2`
     color: #b65704;
+    background-color: white;
+    opacity: 0.9;
     font-size: 24px;
     line-height: 29px;
     text-align: center;
