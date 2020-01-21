@@ -21,7 +21,7 @@ const Root = styled.div`
     min-height: 100vh;
     height: 100vh;
     width: 100%;
-    overflow: scroll;
+    overflow: hidden scroll;
     padding-bottom: 2rem;
     &::after {
         content: "";
@@ -36,8 +36,11 @@ const Root = styled.div`
         position: absolute;
         z-index: -1;
     }
+
     @media only screen and (max-width: 960px) {
-        overflow: scroll;
+        ::-webkit-scrollbar {
+            width: 0;
+        }
     }
 `;
 
