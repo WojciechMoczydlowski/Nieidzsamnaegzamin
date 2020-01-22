@@ -1,6 +1,6 @@
 import React from "react";
 const AddExam: React.FunctionComponent = props => {
-    return <div></div>;
+    return <div />;
 };
 
 export default AddExam;
